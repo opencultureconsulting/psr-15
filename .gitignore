@@ -1,0 +1,4 @@
+/vendor/
+.php-cs-fixer.php
+composer.lock
+phpstan.neon
