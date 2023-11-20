@@ -36,6 +36,11 @@ use Psr\Http\Server\RequestHandlerInterface;
 abstract class AbstractMiddleware implements MiddlewareInterface
 {
     /**
+     * The PSR-15 Server Request Handler.
+     */
+    protected RequestHandlerInterface $handler;
+
+    /**
      * The PSR-7 HTTP Server Request after processing.
      */
     protected ServerRequestInterface $request;
@@ -56,6 +61,7 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      */
     final public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $this->handler = $handler;
         // Manipulate request if necessary.
         $this->request = $this->processRequest($request);
         // Delegate request to next middleware and get response.
