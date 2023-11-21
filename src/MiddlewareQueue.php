@@ -31,6 +31,8 @@ use Psr\Http\Server\MiddlewareInterface;
  *
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
  * @package opencultureconsulting/psr15
+ *
+ * @extends StrictQueue<MiddlewareInterface>
  */
 class MiddlewareQueue extends StrictQueue
 {
@@ -42,7 +44,7 @@ class MiddlewareQueue extends StrictQueue
      *
      * @param iterable<MiddlewareInterface> $middlewares Initial set of PSR-15 middlewares
      */
-    public function __construct(mixed ...$middlewares)
+    public function __construct(iterable $middlewares = [])
     {
         parent::__construct($middlewares, [MiddlewareInterface::class]);
     }

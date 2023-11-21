@@ -68,36 +68,34 @@ class QueueRequestHandler implements RequestHandlerInterface
     public function handle(?ServerRequestInterface $request = null): ResponseInterface
     {
         $this->request = $request ?? $this->request;
-        // It is RECOMMENDED that any application using middleware includes a
-        // component that catches exceptions and converts them into responses.
-        // This middleware SHOULD be the first component executed and wrap all
-        // further processing to ensure that a response is always generated.
-        try {
-            if (count($this->queue) > 0) {
-                $middleware = $this->queue->dequeue();
-                if (!is_object($middleware) || !is_a($middleware, MiddlewareInterface::class)) {
-                    throw new DomainException(
-                        sprintf(
-                            'Middleware must be of type %s, %s given.',
-                            MiddlewareInterface::class,
-                            get_debug_type($middleware)
-                        ),
-                        500
-                    );
-                }
+        if (count($this->queue) > 0) {
+            $middleware = $this->queue->dequeue();
+            // It is RECOMMENDED that any application using middleware includes a
+            // component that catches exceptions and converts them into responses.
+            // This middleware SHOULD be the first component executed and wrap all
+            // further processing to ensure that a response is always generated.
+            try {
                 $this->response = $middleware->process($this->request, $this);
+            } catch(Exception $exception) {
+                $options = [
+                    'options' => [
+                        'default' => 500,
+                        'min_range' => 100,
+                        'max_range' => 599
+                    ]
+                ];
+                $statusCode = filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options);
+                $this->response = new Response(
+                    $statusCode,
+                    [],
+                    sprintf(
+                        'Exception thrown in middleware %s: %s',
+                        get_debug_type($middleware),
+                        $exception->getMessage()
+                    )
+                );
+                $this->respond(1);
             }
-        } catch(Exception $exception) {
-            $options = [
-                'options' => [
-                    'default' => 500,
-                    'min_range' => 100,
-                    'max_range' => 599
-                ]
-            ];
-            $statusCode = filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options);
-            $this->response = new Response($statusCode, [], $exception->getMessage());
-            $this->respond(1);
         }
         return $this->response;
     }
@@ -168,7 +166,7 @@ class QueueRequestHandler implements RequestHandlerInterface
      *
      * @param iterable<MiddlewareInterface> $middlewares Initial set of middlewares
      */
-    public function __construct(?iterable $middlewares = [])
+    public function __construct(iterable $middlewares = [])
     {
         $this->request = ServerRequest::fromGlobals();
         $this->queue = MiddlewareQueue::getInstance($middlewares);
