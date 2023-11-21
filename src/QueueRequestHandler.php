@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace OCC\PSR15;
 
 use Exception;
-use DomainException;
 use RuntimeException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ServerRequest;
@@ -38,6 +37,9 @@ use Psr\Http\Server\RequestHandlerInterface;
  *
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
  * @package opencultureconsulting/psr15
+ *
+ * @property-read MiddlewareQueue $queue
+ * @property-read ServerRequestInterface $request
  */
 class QueueRequestHandler implements RequestHandlerInterface
 {
