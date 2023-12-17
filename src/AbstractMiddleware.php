@@ -41,16 +41,6 @@ abstract class AbstractMiddleware implements MiddlewareInterface
     protected RequestHandlerInterface $handler;
 
     /**
-     * The PSR-7 HTTP Server Request after processing.
-     */
-    protected ServerRequestInterface $request;
-
-    /**
-     * The PSR-7 HTTP Response after processing.
-     */
-    protected ResponseInterface $response;
-
-    /**
      * Process an incoming server request and produce a response.
      * @see MiddlewareInterface::process()
      *
@@ -63,13 +53,13 @@ abstract class AbstractMiddleware implements MiddlewareInterface
     {
         $this->handler = $handler;
         // Manipulate request if necessary.
-        $this->request = $this->processRequest($request);
+        $request = $this->processRequest($request);
         // Delegate request to next middleware and get response.
-        $response = $handler->handle($this->request);
+        $response = $handler->handle($request);
         // Manipulate response if necessary.
-        $this->response = $this->processResponse($response);
+        $response = $this->processResponse($response);
         // Return response to previous middleware.
-        return $this->response;
+        return $response;
     }
 
     /**
@@ -79,7 +69,10 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      *
      * @return ServerRequestInterface The processed server request
      */
-    abstract protected function processRequest(ServerRequestInterface $request): ServerRequestInterface;
+    protected function processRequest(ServerRequestInterface $request): ServerRequestInterface
+    {
+        return $request;
+    }
 
     /**
      * Process an incoming response before returning it to previous middleware.
@@ -88,7 +81,10 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      *
      * @return ResponseInterface The processed response
      */
-    abstract protected function processResponse(ResponseInterface $response): ResponseInterface;
+    protected function processResponse(ResponseInterface $response): ResponseInterface
+    {
+        return $response;
+    }
 
     /**
      * Allow the middleware to be invoked directly.
