@@ -164,6 +164,17 @@ class QueueRequestHandler implements RequestHandlerInterface
     }
 
     /**
+     * Magic getter method for $this->response.
+     * @see Getter
+     *
+     * @return ResponseInterface The PSR-7 response
+     */
+    protected function magicGetResponse(): ResponseInterface
+    {
+        return $this->response;
+    }
+
+    /**
      * Create a queue-based PSR-15 HTTP Server Request Handler.
      *
      * @param iterable<MiddlewareInterface> $middlewares Initial set of middlewares
