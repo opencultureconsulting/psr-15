@@ -44,7 +44,7 @@ class MiddlewareQueue extends StrictQueue
      *
      * @param iterable<MiddlewareInterface> $middlewares Initial set of PSR-15 middlewares
      */
-    public function __construct(iterable $middlewares = [])
+    private function __construct(iterable $middlewares = [])
     {
         parent::__construct($middlewares, [MiddlewareInterface::class]);
     }
