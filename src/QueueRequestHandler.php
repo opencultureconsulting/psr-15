@@ -108,6 +108,8 @@ class QueueRequestHandler implements RequestHandlerInterface
      * @param ?int $exitCode Exit code after sending out the response or NULL to continue
      *
      * @return void
+     *
+     * @throws RuntimeException
      */
     public function respond(?int $exitCode = null): void
     {
