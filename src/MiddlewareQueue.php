@@ -40,12 +40,12 @@ class MiddlewareQueue extends StrictQueue
 
     /**
      * Create a queue of PSR-15 compatible middlewares.
-     * @see \OCC\Basics\DataStructures\StrictQueue::__construct()
      *
      * @param iterable<MiddlewareInterface> $middlewares Initial set of PSR-15 middlewares
      */
     private function __construct(iterable $middlewares = [])
     {
-        parent::__construct($middlewares, [MiddlewareInterface::class]);
+        parent::__construct([MiddlewareInterface::class]);
+        $this->append(...$middlewares);
     }
 }
