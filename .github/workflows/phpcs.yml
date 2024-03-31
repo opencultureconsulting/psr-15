@@ -1,4 +1,4 @@
-name: PHP Static Analyzer
+name: PHP Code Sniffer
 
 on:
   push:
@@ -10,12 +10,11 @@ permissions:
   contents: read
 
 jobs:
-  PHPStan:
-    name: PHPStan Scanner
+  PHPCS:
+    name: PHPCS Scanner
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write
       actions: read
 
     steps:
@@ -28,8 +27,9 @@ jobs:
           command: update
           php_version: "8.1"
 
-      - name: Run PHPStan
-        uses: php-actions/phpstan@v3
+      - name: Run PHPCS
+        uses: php-actions/phpcs@v1
         with:
+          php_version: "8.1"
           path: src/
-          configuration: phpstan.dist.neon
+          standard: phpcs.xml.dist

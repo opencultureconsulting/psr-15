@@ -30,7 +30,7 @@ use Psr\Http\Server\MiddlewareInterface;
  * Queue of PSR-15 Middlewares to process HTTP Server Requests.
  *
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
- * @package opencultureconsulting/psr15
+ * @package PSR15
  *
  * @extends StrictQueue<MiddlewareInterface>
  */

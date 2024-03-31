@@ -31,7 +31,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  * Abstract class implementing Psr\Http\Server\MiddlewareInterface.
  *
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
- * @package opencultureconsulting/psr15
+ * @package PSR15
  */
 abstract class AbstractMiddleware implements MiddlewareInterface
 {

@@ -8,6 +8,7 @@
         "request",
         "handler",
         "middleware",
+        "queue",
         "http-server-handler",
         "http-server-middleware"
     ],
@@ -25,19 +26,21 @@
     "support": {
         "issues": "https://github.com/opencultureconsulting/psr-15/issues",
         "source": "https://github.com/opencultureconsulting/psr-15",
-        "docs": "https://github.com/opencultureconsulting/psr-15/blob/main/README.md"
+        "docs": "https://opencultureconsulting.github.io/psr-15/"
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "guzzlehttp/psr7": "^2.6",
-        "opencultureconsulting/basics": "^1.1",
+        "opencultureconsulting/basics": "^2.0",
         "psr/http-server-handler": "^1.0",
         "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-strict-rules": "^1.5",
-        "friendsofphp/php-cs-fixer": "^3.48"
+        "friendsofphp/php-cs-fixer": "^3.52",
+        "squizlabs/php_codesniffer": "^3.9",
+        "vimeo/psalm": "^5.23"
     },
     "provide": {
         "psr/http-server-handler-implementation": "1.0",

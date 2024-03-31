@@ -36,7 +36,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  * A queue-based PSR-15 HTTP Server Request Handler.
  *
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
- * @package opencultureconsulting/psr15
+ * @package PSR15
  *
  * @property-read MiddlewareQueue $queue
  * @property-read ServerRequestInterface $request

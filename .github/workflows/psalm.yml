@@ -1,4 +1,4 @@
-name: PHP Mess Detector
+name: Psalm Static Analyzer
 
 on:
   push:
@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  PHPMD:
-    name: PHPMD Scanner
+  Psalm:
+    name: Psalm Scanner
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -22,19 +22,14 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Environment
-        uses: shivammathur/setup-php@v2
+      - name: Run Psalm
+        uses: docker://ghcr.io/psalm/psalm-github-actions
         with:
-          php-version: "8.1"
-          coverage: none
-          tools: phpmd
-
-      - name: Run PHPMD
-        run: phpmd . sarif codesize --reportfile phpmd-results.sarif
-        continue-on-error: true
+          security_analysis: true
+          report_file: psalm-results.sarif
 
       - name: Upload Analysis Results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: phpmd-results.sarif
+          sarif_file: psalm-results.sarif
           wait-for-processing: true
