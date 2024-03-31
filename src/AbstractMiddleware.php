@@ -22,13 +22,13 @@ declare(strict_types=1);
 
 namespace OCC\PSR15;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 /**
- * Abstract class implementing Psr\Http\Server\MiddlewareInterface.
+ * Abstract class implementing \Psr\Http\Server\MiddlewareInterface.
  *
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
  * @package PSR15
@@ -37,19 +37,24 @@ abstract class AbstractMiddleware implements MiddlewareInterface
 {
     /**
      * The PSR-15 Server Request Handler.
+     *
+     * @var QueueRequestHandler
+     *
+     * @internal
      */
     protected QueueRequestHandler $requestHandler;
 
     /**
      * Process an incoming server request and produce a response.
-     * @see MiddlewareInterface::process()
      *
-     * @param ServerRequestInterface $request The server request to process
-     * @param RequestHandlerInterface $handler The request handler to delegate to
+     * @param ServerRequest $request The server request to process
+     * @param RequestHandler $handler The request handler to delegate to
      *
-     * @return ResponseInterface The response object
+     * @return Response The response object
+     *
+     * @api
      */
-    final public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    final public function process(ServerRequest $request, RequestHandler $handler): Response
     {
         /** @var QueueRequestHandler $handler */
         $this->requestHandler = $handler;
@@ -66,11 +71,11 @@ abstract class AbstractMiddleware implements MiddlewareInterface
     /**
      * Process an incoming server request before delegating to next middleware.
      *
-     * @param ServerRequestInterface $request The incoming server request
+     * @param ServerRequest $request The incoming server request
      *
-     * @return ServerRequestInterface The processed server request
+     * @return ServerRequest The processed server request
      */
-    protected function processRequest(ServerRequestInterface $request): ServerRequestInterface
+    protected function processRequest(ServerRequest $request): ServerRequest
     {
         return $request;
     }
@@ -78,25 +83,26 @@ abstract class AbstractMiddleware implements MiddlewareInterface
     /**
      * Process an incoming response before returning it to previous middleware.
      *
-     * @param ResponseInterface $response The incoming response
+     * @param Response $response The incoming response
      *
-     * @return ResponseInterface The processed response
+     * @return Response The processed response
      */
-    protected function processResponse(ResponseInterface $response): ResponseInterface
+    protected function processResponse(Response $response): Response
     {
         return $response;
     }
 
     /**
      * Allow the middleware to be invoked directly.
-     * @see AbstractMiddleware::process()
      *
-     * @param ServerRequestInterface $request The server request to process
-     * @param RequestHandlerInterface $handler The request handler to delegate to
+     * @param ServerRequest $request The server request to process
+     * @param RequestHandler $handler The request handler to delegate to
      *
-     * @return ResponseInterface The response object
+     * @return Response The response object
+     *
+     * @api
      */
-    final public function __invoke(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    final public function __invoke(ServerRequest $request, RequestHandler $handler): Response
     {
         return $this->process($request, $handler);
     }

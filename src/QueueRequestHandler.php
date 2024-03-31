@@ -24,13 +24,22 @@ namespace OCC\PSR15;
 
 use Exception;
 use RuntimeException;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\ServerRequest;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use GuzzleHttp\Psr7\ServerRequest as GuzzleRequest;
 use OCC\Basics\Traits\Getter;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as ServerRequest;
+use Psr\Http\Server\MiddlewareInterface as Middleware;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+
+use function array_keys;
+use function count;
+use function filter_var;
+use function get_debug_type;
+use function header;
+use function headers_sent;
+use function is_null;
+use function sprintf;
 
 /**
  * A queue-based PSR-15 HTTP Server Request Handler.
@@ -39,35 +48,50 @@ use Psr\Http\Server\RequestHandlerInterface;
  * @package PSR15
  *
  * @property-read MiddlewareQueue $queue
- * @property-read ServerRequestInterface $request
+ * @property-read ServerRequest $request
+ * @property-read Response $response
  */
-class QueueRequestHandler implements RequestHandlerInterface
+class QueueRequestHandler implements RequestHandler
 {
     use Getter;
 
     /**
      * The PSR-7 HTTP Server Request.
+     *
+     * @var ServerRequest
+     *
+     * @internal
      */
-    protected ServerRequestInterface $request;
+    protected ServerRequest $request;
 
     /**
      * The queue of middlewares to process the server request.
+     *
+     * @var MiddlewareQueue
+     *
+     * @internal
      */
     protected MiddlewareQueue $queue;
 
     /**
      * The PSR-7 HTTP Response.
+     *
+     * @var Response
+     *
+     * @internal
      */
-    protected ResponseInterface $response;
+    protected Response $response;
 
     /**
      * Handles a request by invoking a queue of middlewares.
      *
-     * @param ?ServerRequestInterface $request The PSR-7 server request to handle
+     * @param ?ServerRequest $request The PSR-7 server request to handle
      *
-     * @return ResponseInterface A PSR-7 compatible HTTP response
+     * @return Response A PSR-7 compatible HTTP response
+     *
+     * @api
      */
-    public function handle(?ServerRequestInterface $request = null): ResponseInterface
+    public function handle(?ServerRequest $request = null): Response
     {
         $this->request = $request ?? $this->request;
         if (count($this->queue) > 0) {
@@ -78,7 +102,7 @@ class QueueRequestHandler implements RequestHandlerInterface
             // further processing to ensure that a response is always generated.
             try {
                 $this->response = $middleware->process($this->request, $this);
-            } catch(Exception $exception) {
+            } catch (Exception $exception) {
                 $options = [
                     'options' => [
                         'default' => 500,
@@ -87,7 +111,7 @@ class QueueRequestHandler implements RequestHandlerInterface
                     ]
                 ];
                 $statusCode = filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options);
-                $this->response = new Response(
+                $this->response = new GuzzleResponse(
                     $statusCode,
                     [],
                     sprintf(
@@ -109,7 +133,9 @@ class QueueRequestHandler implements RequestHandlerInterface
      *
      * @return void
      *
-     * @throws RuntimeException
+     * @throws RuntimeException if headers were already sent
+     *
+     * @api
      */
     public function respond(?int $exitCode = null): void
     {
@@ -126,7 +152,7 @@ class QueueRequestHandler implements RequestHandlerInterface
         }
         header(
             sprintf(
-                'HTTP/%s %s %s',
+                'HTTP/%s %d %s',
                 $this->response->getProtocolVersion(),
                 $this->response->getStatusCode(),
                 $this->response->getReasonPhrase()
@@ -134,6 +160,7 @@ class QueueRequestHandler implements RequestHandlerInterface
             true
         );
         foreach (array_keys($this->response->getHeaders()) as $name) {
+            /** @var string $name */
             $header = sprintf('%s: %s', $name, $this->response->getHeaderLine($name));
             header($header, false);
         }
@@ -145,9 +172,10 @@ class QueueRequestHandler implements RequestHandlerInterface
 
     /**
      * Magic getter method for $this->queue.
-     * @see Getter
      *
      * @return MiddlewareQueue The queue of PSR-15 middlewares
+     *
+     * @internal
      */
     protected function magicGetQueue(): MiddlewareQueue
     {
@@ -156,22 +184,24 @@ class QueueRequestHandler implements RequestHandlerInterface
 
     /**
      * Magic getter method for $this->request.
-     * @see Getter
      *
-     * @return ServerRequestInterface The PSR-7 server request
+     * @return ServerRequest The PSR-7 server request
+     *
+     * @internal
      */
-    protected function magicGetRequest(): ServerRequestInterface
+    protected function _magicGetRequest(): ServerRequest
     {
         return $this->request;
     }
 
     /**
      * Magic getter method for $this->response.
-     * @see Getter
      *
-     * @return ResponseInterface The PSR-7 response
+     * @return Response The PSR-7 response
+     *
+     * @internal
      */
-    protected function magicGetResponse(): ResponseInterface
+    protected function _magicGetResponse(): Response
     {
         return $this->response;
     }
@@ -179,24 +209,27 @@ class QueueRequestHandler implements RequestHandlerInterface
     /**
      * Create a queue-based PSR-15 HTTP Server Request Handler.
      *
-     * @param iterable<MiddlewareInterface> $middlewares Initial set of middlewares
+     * @param iterable<array-key, Middleware> $middlewares Initial set of middlewares
+     *
+     * @return void
      */
     public function __construct(iterable $middlewares = [])
     {
-        $this->request = ServerRequest::fromGlobals();
+        $this->request = GuzzleRequest::fromGlobals();
         $this->queue = MiddlewareQueue::getInstance($middlewares);
-        $this->response = new Response(200);
+        $this->response = new GuzzleResponse(200);
     }
 
     /**
      * Allow the request handler to be invoked directly.
-     * @see QueueRequestHandler::handle()
      *
-     * @param ?ServerRequestInterface $request The PSR-7 server request to handle
+     * @param ?ServerRequest $request The PSR-7 server request to handle
      *
-     * @return ResponseInterface A PSR-7 compatible HTTP response
+     * @return Response A PSR-7 compatible HTTP response
+     *
+     * @api
      */
-    public function __invoke(?ServerRequestInterface $request = null): ResponseInterface
+    public function __invoke(?ServerRequest $request = null): Response
     {
         return $this->handle($request);
     }
