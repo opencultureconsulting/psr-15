@@ -177,7 +177,7 @@ class QueueRequestHandler implements RequestHandler
      *
      * @internal
      */
-    protected function magicGetQueue(): MiddlewareQueue
+    protected function _magicGetQueue(): MiddlewareQueue
     {
         return $this->queue;
     }
