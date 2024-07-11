@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<section>
+    <ul class="phpdocumentor-breadcrumbs">
+        <li><a href>Home</a></li>
+    </ul>
+
+    <h2 class="phpdocumentor-content__title">Queue-based HTTP Server Request Handler</h2>
+
+    <p class="phpdocumentor-summary">An implementation of <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP
+    Server Request Handlers</a>.</p>
+
+    <p>The PHP Standard Recommendation PSR-15 defines interfaces for server request handlers and proposes a queue-based
+    implementation using different middlewares for processing requests and preparing responses. This package follows
+    those guidelines and provides a <a href="guides/overview/queuerequesthandler.html">HTTP server request handler</a>
+    implementation using a <a href="guides/overview/middlewarequeue.html">middleware queue</a>. It also contains an
+    <a href="guides/overview/abstractmiddleware.html">abstract class for middlewares</a> to ease the process of writing
+    your own middleware, but you can just as well use any middleware that implements the middleware interface specified
+    by PSR-15 (e.g. from the awesome <a href="https://github.com/middlewares">PSR-15 HTTP Middlewares</a> project).</p>
+
+    <p>All components of this package follow the highest coding standards of <a href="https://phpstan.org/">PHPStan</a>
+    and <a href="https://psalm.dev/">Psalm</a>, and comply to <a href="https://www.php-fig.org/psr/psr-12/">PSR-12</a>
+    code style guidelines to make sure they can be combined and easily re-used in other projects.</p>
+
+    <h3 id="toc">Table of Contents</h3>
+
+    {% include('components/toc.html.twig') %}
+</section>
+{% endblock %}
