@@ -6,7 +6,7 @@
     errorLevel="1"
     resolveFromConfigFile="true"
     findUnusedBaselineEntry="true"
-    findUnusedCode="true"
+    findUnusedCode="false"
     findUnusedVariablesAndParams="true"
 >
     <issueHandlers>

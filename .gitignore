@@ -1,6 +1,7 @@
 /.phpdoc/cache/
 /.vscode/
 /vendor/
+.php-cs-fixer.cache
 .php-cs-fixer.php
 composer.lock
 phpcs.xml
