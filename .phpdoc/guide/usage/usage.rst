@@ -20,7 +20,7 @@ The abstract middleware already implements a complete middleware, but it will ju
 anything. In order to have it do something, we need to implement our own :php:method:`OCC\PSR15\AbstractMiddleware::processRequest()`
 or :php:method:`OCC\PSR15\AbstractMiddleware::processResponse()` method, or both of them.
 
-The logic here is the same as with every `PSR-15: HTTP Server Request Handler <https://www.php-fig.org/psr/psr-15/>`_
+The logic here is the same as with every `PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_
 middleware: The request gets passed through all middlewares' `processRequest()` methods in order of their addition to
 the queue, then a response is created and passed through all `processResponse()` methods, **but in reverse order**! So
 the first middleware in the queue gets the request first, but the response last.
@@ -149,7 +149,7 @@ Diving Deeper
 =============
 
 To familiarize yourself with the FIFO principle of the middleware queue, you can try to exchange the two lines adding
-the middlewares to the queue, i.e. adding `MiddlewareTwo` first and `MiddlewareOne` second. This will result in an HTTP
+the middlewares to the queue, i.e. add `MiddlewareTwo` first and `MiddlewareOne` second. This will result in an HTTP
 response with status code `500 (Internal Server Error)`.
 
 This is exactly what we intended: Have a look at `MiddlewareTwo::processResponse()` again! If `$lastMiddlewarePassed`

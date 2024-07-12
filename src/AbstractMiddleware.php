@@ -99,8 +99,6 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      * @param RequestHandler $handler The request handler to delegate to
      *
      * @return Response The response object
-     *
-     * @api
      */
     final public function __invoke(ServerRequest $request, RequestHandler $handler): Response
     {

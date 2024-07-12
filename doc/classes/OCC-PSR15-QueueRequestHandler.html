@@ -442,9 +442,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/QueueRequestHandler.php"><a href="files/src-queuerequesthandler.html"><abbr title="src/QueueRequestHandler.php">QueueRequestHandler.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 
-            <a href="classes/OCC-PSR15-QueueRequestHandler.html#source-view.216" class="phpdocumentor-element-found-in__source" data-line="216" data-modal="source-view" data-src="files/src/QueueRequestHandler.php.txt"></a>
+            <a href="classes/OCC-PSR15-QueueRequestHandler.html#source-view.225" class="phpdocumentor-element-found-in__source" data-line="225" data-modal="source-view" data-src="files/src/QueueRequestHandler.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Create a queue-based PSR-15 HTTP Server Request Handler.</p>
@@ -490,9 +490,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/QueueRequestHandler.php"><a href="files/src-queuerequesthandler.html"><abbr title="src/QueueRequestHandler.php">QueueRequestHandler.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">232</span>
+    <span class="phpdocumentor-element-found-in__line">239</span>
 
-            <a href="classes/OCC-PSR15-QueueRequestHandler.html#source-view.232" class="phpdocumentor-element-found-in__source" data-line="232" data-modal="source-view" data-src="files/src/QueueRequestHandler.php.txt"></a>
+            <a href="classes/OCC-PSR15-QueueRequestHandler.html#source-view.239" class="phpdocumentor-element-found-in__source" data-line="239" data-modal="source-view" data-src="files/src/QueueRequestHandler.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Allow the request handler to be invoked directly.</p>
@@ -502,8 +502,6 @@
                     <span class="phpdocumentor-signature__name">__invoke</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\ServerRequestInterface">ServerRequestInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
 
     <div class="phpdocumentor-label-line">
-            <div class="phpdocumentor-label phpdocumentor-label--success"><span>API</span><span>Yes</span></div>
-
         </div>
     
     
@@ -606,9 +604,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/QueueRequestHandler.php"><a href="files/src-queuerequesthandler.html"><abbr title="src/QueueRequestHandler.php">QueueRequestHandler.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">141</span>
 
-            <a href="classes/OCC-PSR15-QueueRequestHandler.html#source-view.140" class="phpdocumentor-element-found-in__source" data-line="140" data-modal="source-view" data-src="files/src/QueueRequestHandler.php.txt"></a>
+            <a href="classes/OCC-PSR15-QueueRequestHandler.html#source-view.141" class="phpdocumentor-element-found-in__source" data-line="141" data-modal="source-view" data-src="files/src/QueueRequestHandler.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Return the current response to the client.</p>
@@ -630,7 +628,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Exit code after sending out the response or NULL to continue</p>
+                    <section class="phpdocumentor-description"><p>Exit status after sending out the response or NULL to continue</p>
+<p>Must be in the range 0 to 254. The status 0 is used to terminate the program successfully.</p>
 </section>
 
             </dd>

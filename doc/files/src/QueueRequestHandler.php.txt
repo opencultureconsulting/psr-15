@@ -120,7 +120,6 @@ class QueueRequestHandler implements RequestHandler
                         $exception->getMessage()
                     )
                 );
-                $this->respond(1);
             }
         }
         return $this->response;
@@ -129,7 +128,9 @@ class QueueRequestHandler implements RequestHandler
     /**
      * Return the current response to the client.
      *
-     * @param ?int $exitCode Exit code after sending out the response or NULL to continue
+     * @param ?int $exitCode Exit status after sending out the response or NULL to continue
+     *
+     *                       Must be in the range 0 to 254. The status 0 is used to terminate the program successfully.
      *
      * @return void
      *
@@ -166,6 +167,14 @@ class QueueRequestHandler implements RequestHandler
         }
         echo $this->response->getBody();
         if (!is_null($exitCode)) {
+            $options = [
+                'options' => [
+                    'default' => 1,
+                    'min_range' => 0,
+                    'max_range' => 254
+                ]
+            ];
+            $exitCode = filter_var($exitCode, FILTER_VALIDATE_INT, $options);
             exit($exitCode);
         }
     }
@@ -226,8 +235,6 @@ class QueueRequestHandler implements RequestHandler
      * @param ?ServerRequest $request The PSR-7 server request to handle
      *
      * @return Response A PSR-7 compatible HTTP response
-     *
-     * @api
      */
     public function __invoke(?ServerRequest $request = null): Response
     {

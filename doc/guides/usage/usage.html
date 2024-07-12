@@ -205,7 +205,7 @@ or <a href="classes/OCC-PSR15-AbstractMiddleware.html#method_processResponse"><a
  method, or both of them.</p>
 
             
-    <p>The logic here is the same as with every <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handler</a>
+    <p>The logic here is the same as with every <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a>
 middleware: The request gets passed through all middlewares&#039; <code>processRequest()</code>
  methods in order of their addition to
 the queue, then a response is created and passed through all <code>processResponse()</code>
@@ -348,7 +348,7 @@ $requestHandler-&gt;respond();
 
             
     <p>To familiarize yourself with the FIFO principle of the middleware queue, you can try to exchange the two lines adding
-the middlewares to the queue, i.e. adding <code>MiddlewareTwo</code>
+the middlewares to the queue, i.e. add <code>MiddlewareTwo</code>
  first and <code>MiddlewareOne</code>
  second. This will result in an HTTP
 response with status code <code>500 (Internal Server Error)</code>
