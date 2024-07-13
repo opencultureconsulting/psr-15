@@ -153,6 +153,115 @@
                                         <div class="section" id="abstractmiddleware">
             <h1>AbstractMiddleware</h1>
 
+            <div class="admonition-wrapper">
+    <div class="admonition admonition-sidebar"><p class="sidebar-title">Table of Contents</p>
+        <div class="contents">
+        <ul class="phpdocumentor-list">
+    <li class="toc-item">
+    <a href="guides/overview/abstractmiddleware.html#properties">Properties</a>
+
+
+</li>
+
+    <li class="toc-item">
+    <a href="guides/overview/abstractmiddleware.html#methods">Methods</a>
+
+        <ul class="section-level-2">
+            <li class="toc-item">
+    <a href="guides/overview/abstractmiddleware.html#processing-a-request">Processing a Request</a>
+
+
+</li>
+
+            <li class="toc-item">
+    <a href="guides/overview/abstractmiddleware.html#processing-a-response">Processing a Response</a>
+
+
+</li>
+
+                    </ul>
+</li>
+
+    </ul>
+</div>
+
+    </div>
+</div>
+
+            
+    <p>The <code>AbstractMiddleware</code>
+ is a little helper for creating your own middlewares. It processes the incoming request before
+handing it over to the next middleware in line, and later processes the response before returning it to the previous
+middleware. Originally both methods just return their argument unchanged, so you should implement either one of them or
+both as needed.</p>
+
+            
+    <p>The <code>AbstractMiddleware</code>
+ implements the
+<a href="https://www.php-fig.org/psr/psr-15/#22-psrhttpservermiddlewareinterface">Psr\Http\Server\MiddlewareInterface</a>
+following PHP-FIG&#039;s recommendation <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a>.</p>
+
+            <div class="section" id="properties">
+            <h2>Properties</h2>
+
+            
+    <p>The <code>AbstractMiddleware</code>
+ has a single protected property <code>AbstractMiddleware::requestHandler</code>
+ referencing the request
+handler which called the middleware. This can be used to access the request and/or response object (as properties of
+<a href="guides/overview/queuerequesthandler.html">QueueRequestHandler</a>) when they are otherwise not available.</p>
+
+    </div>
+
+            <div class="section" id="methods">
+            <h2>Methods</h2>
+
+            
+    <p>The <code>AbstractMiddleware</code>
+ provides one public API method and two protected methods. While the former is final and makes
+sure it implements the <code>Psr\Http\Server\MiddlewareInterface</code>
+, the latter are intended to be extended in your own class.</p>
+
+            
+    <p>The main <a href="classes/OCC-PSR15-AbstractMiddleware.html#method_process"><abbr title="\OCC\PSR15\AbstractMiddleware::process()">AbstractMiddleware::process()</abbr></a>
+ method implements the interface and is also called when
+invoking the middleware object directly. It first passes the incoming request to the
+<a href="classes/OCC-PSR15-AbstractMiddleware.html#method_processRequest"><abbr title="\OCC\PSR15\AbstractMiddleware::processRequest()">AbstractMiddleware::processRequest()</abbr></a>
+ method, then hands over the result to the request handler
+to receive a response, which is then processed by <a href="classes/OCC-PSR15-AbstractMiddleware.html#method_processResponse"><abbr title="\OCC\PSR15\AbstractMiddleware::processResponse()">AbstractMiddleware::processResponse()</abbr></a>
+ before
+returning it back to the request handler again.</p>
+
+            <div class="section" id="processing-a-request">
+            <h3>Processing a Request</h3>
+
+            
+    <p>The default method of <code>AbstractMiddleware</code>
+ just returns the request unchanged. If you need to process the request, you
+have to implement your own <code>processRequest()</code>
+ method. It takes a request object as only argument and must return a
+valid request object as well. Just make sure it follows PHP-FIG&#039;s standard recommendation
+<a href="https://www.php-fig.org/psr/psr-7/">PSR-7: HTTP Message Interfaces</a> and implements the
+<a href="https://www.php-fig.org/psr/psr-7/#321-psrhttpmessageserverrequestinterface">Psr\Http\Message\ServerRequestInterface</a>.</p>
+
+    </div>
+
+            <div class="section" id="processing-a-response">
+            <h3>Processing a Response</h3>
+
+            
+    <p>The default method of <code>AbstractMiddleware</code>
+ just returns the response unchanged. If you need to process the response,
+you have to implement your own <code>processResponse()</code>
+ method. It takes a response object as only argument and must return
+a valid response object as well. Just make sure it follows PHP-FIG&#039;s standard recommendation
+<a href="https://www.php-fig.org/psr/psr-7/">PSR-7: HTTP Message Interfaces</a> and implements the
+<a href="https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface">Psr\Http\Message\ResponseInterface</a>.</p>
+
+    </div>
+
+    </div>
+
     </div>
 
                             </div>
