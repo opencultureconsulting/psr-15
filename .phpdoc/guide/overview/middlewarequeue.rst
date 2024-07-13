@@ -9,7 +9,7 @@ MiddlewareQueue
 The `MiddlewareQueue` manages the middlewares involved in processing a server request. It makes sure they are called in
 first-in, first-out (FIFO) order, i.e. the same order they were added to the queue. It also ensures all middlewares are
 implementing the `PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_ specification for the
-`Psr\Http\Server\MiddlewareInterface <https://www.php-fig.org/psr/psr-15/#22-psrhttpservermiddlewareinterface>`_.
+`Psr\Http\Server\MiddlewareInterface`.
 
 When instantiating a `MiddlewareQueue` it defaults to being empty. But you can optionally pass an iterable set of
 middlewares to the constructor which are then put into the queue. To demonstrate, the following examples both have
@@ -35,8 +35,7 @@ exactly the same result.
     $queue->enqueue(new MiddlewareOne());
     $queue->enqueue(new MiddlewareTwo());
 
-The `MiddlewareQueue` is based on a
-`OCC\Basics\DataStructures\StrictQueue <https://opencultureconsulting.github.io/php-basics/guides/overview/datastructures.html#strictqueue>`_.
+The `MiddlewareQueue` is based on a `OCC\Basics\DataStructures\StrictQueue`.
 
 Methods
 =======

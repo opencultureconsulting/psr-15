@@ -11,9 +11,8 @@ handing it over to the next middleware in line, and later processes the response
 middleware. Originally both methods just return their argument unchanged, so you should implement either one of them or
 both as needed.
 
-The `AbstractMiddleware` implements the
-`Psr\Http\Server\MiddlewareInterface <https://www.php-fig.org/psr/psr-15/#22-psrhttpservermiddlewareinterface>`_
-following PHP-FIG's recommendation `PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_.
+The `AbstractMiddleware` implements the `Psr\Http\Server\MiddlewareInterface` following PHP-FIG's recommendation
+`PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_.
 
 Properties
 ==========
@@ -41,7 +40,7 @@ The default method of `AbstractMiddleware` just returns the request unchanged. I
 have to implement your own `processRequest()` method. It takes a request object as only argument and must return a
 valid request object as well. Just make sure it follows PHP-FIG's standard recommendation
 `PSR-7: HTTP Message Interfaces <https://www.php-fig.org/psr/psr-7/>`_ and implements the
-`Psr\Http\Message\ServerRequestInterface <https://www.php-fig.org/psr/psr-7/#321-psrhttpmessageserverrequestinterface>`_.
+`Psr\Http\Message\ServerRequestInterface`.
 
 Processing a Response
 ---------------------
@@ -50,4 +49,4 @@ The default method of `AbstractMiddleware` just returns the response unchanged. 
 you have to implement your own `processResponse()` method. It takes a response object as only argument and must return
 a valid response object as well. Just make sure it follows PHP-FIG's standard recommendation
 `PSR-7: HTTP Message Interfaces <https://www.php-fig.org/psr/psr-7/>`_ and implements the
-`Psr\Http\Message\ResponseInterface <https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface>`_.
+`Psr\Http\Message\ResponseInterface`.

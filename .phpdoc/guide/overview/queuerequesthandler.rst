@@ -10,9 +10,8 @@ The `QueueRequestHandler` is the core piece of this package. It fetches incoming
 queue of middlewares and finally sends the response back to the client. It also catches any exceptions not handled by
 a middleware and turns them into a proper HTTP error response.
 
-The `QueueRequestHandler` implements the
-`Psr\Http\Server\RequestHandlerInterface <https://www.php-fig.org/psr/psr-15/#21-psrhttpserverrequesthandlerinterface>`_
-following PHP-FIG's recommendation `PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_.
+The `QueueRequestHandler` implements the `Psr\Http\Server\RequestHandlerInterface` following PHP-FIG's recommendation
+`PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_.
 
 For a minimal working example have a look at :doc:`../usage/usage`.
 
@@ -58,7 +57,7 @@ HTTP Server Request
 
 The server request is always available as `QueueRequestHandler::request`. It follows PHP-FIG's standard recommendation
 `PSR-7: HTTP Message Interfaces <https://www.php-fig.org/psr/psr-7/>`_ and implements the
-`Psr\Http\Message\ServerRequestInterface <https://www.php-fig.org/psr/psr-7/#321-psrhttpmessageserverrequestinterface>`_.
+`Psr\Http\Message\ServerRequestInterface`.
 
 When instantiating a `QueueRequestHandler` the `$request` property is initially set by fetching the actual server
 request data from superglobals. The property is reset each time the request is passed through a middleware and thus
@@ -69,7 +68,7 @@ HTTP Response
 
 The response can be read as `QueueRequestHandler::response`. It also follows PHP-FIG's standard recommendation
 `PSR-7: HTTP Message Interfaces <https://www.php-fig.org/psr/psr-7/>`_ and implements the
-`Psr\Http\Message\ResponseInterface <https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface>`_.
+`Psr\Http\Message\ResponseInterface`.
 
 When instantiating a `QueueRequestHandler` the `$response` property is initially set as a blank HTTP response with
 status code `200`. The property is reset each time the response is passed through a middleware and thus
