@@ -153,6 +153,120 @@
                                         <div class="section" id="middlewarequeue">
             <h1>MiddlewareQueue</h1>
 
+            <div class="admonition-wrapper">
+    <div class="admonition admonition-sidebar"><p class="sidebar-title">Table of Contents</p>
+        <div class="contents">
+        <ul class="phpdocumentor-list">
+    <li class="toc-item">
+    <a href="guides/overview/middlewarequeue.html#methods">Methods</a>
+
+        <ul class="section-level-2">
+            <li class="toc-item">
+    <a href="guides/overview/middlewarequeue.html#adding-a-middleware">Adding a Middleware</a>
+
+
+</li>
+
+            <li class="toc-item">
+    <a href="guides/overview/middlewarequeue.html#fetching-the-next-in-line">Fetching the next in line</a>
+
+
+</li>
+
+                    </ul>
+</li>
+
+    </ul>
+</div>
+
+    </div>
+</div>
+
+            
+    <p>The <code>MiddlewareQueue</code>
+ manages the middlewares involved in processing a server request. It makes sure they are called in
+first-in, first-out (FIFO) order, i.e. the same order they were added to the queue. It also ensures all middlewares are
+implementing the <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a> specification for the
+<a href="https://www.php-fig.org/psr/psr-15/#22-psrhttpservermiddlewareinterface">Psr\Http\Server\MiddlewareInterface</a>.</p>
+
+            
+    <p>When instantiating a <code>MiddlewareQueue</code>
+ it defaults to being empty. But you can optionally pass an iterable set of
+middlewares to the constructor which are then put into the queue. To demonstrate, the following examples both have
+exactly the same result.</p>
+
+            <blockquote>
+    <p>Examples:</p>
+<pre><code class="language-php">use OCC\PSR15\MiddlewareQueue;
+
+$middlewares = [
+    new MiddlewareOne(),
+    new MiddlewareTwo()
+];
+
+$queue = new MiddlewareQueue($middlewares);</code></pre>
+<pre><code class="language-php">use OCC\PSR15\MiddlewareQueue;
+
+$queue = new MiddlewareQueue();
+
+$queue-&gt;enqueue(new MiddlewareOne());
+$queue-&gt;enqueue(new MiddlewareTwo());</code></pre>
+</blockquote>
+
+            
+    <p>The <code>MiddlewareQueue</code>
+ is based on a
+<a href="https://opencultureconsulting.github.io/php-basics/guides/overview/datastructures.html#strictqueue">OCC\Basics\DataStructures\StrictQueue</a>.</p>
+
+            <div class="section" id="methods">
+            <h2>Methods</h2>
+
+            
+    <p>The <code>MiddlewareQueue</code>
+ provides a set of API methods, with <code>MiddlewareQueue::enqueue()</code>
+ and <code>MiddlewareQueue::dequeue()</code>
+
+being the most relevant ones. The former will add a new item at the end of the queue while the latter removes and
+returns the first item from the queue.</p>
+
+            
+    <p>For a complete API documentation have a look at the
+<a href="https://opencultureconsulting.github.io/php-basics/classes/OCC-Basics-DataStructures-StrictQueue.html">StrictQueue</a>.</p>
+
+            <div class="section" id="adding-a-middleware">
+            <h3>Adding a Middleware</h3>
+
+            
+    <p>Invoking <code>MiddlewareQueue::enqueue()</code>
+ will add a middleware at the end of the queue. The only argument must be a
+middleware object implementing the <code>Psr\Http\Server\MiddlewareInterface</code>
+. If the given argument does not meet the
+criterion an <code>OCC\Basics\DataStructures\Exceptions\InvalidDataTypeException</code>
+ is thrown.</p>
+
+            
+    <p>Have a look at the <a href="guides/overview/abstractmiddleware.html">AbstractMiddleware</a> for an easy way to create your own middlewares!</p>
+
+    </div>
+
+            <div class="section" id="fetching-the-next-in-line">
+            <h3>Fetching the next in line</h3>
+
+            
+    <p>Calling <code>MiddlewareQueue::dequeue()</code>
+ will return the first middleware from the queue, i.e. the oldest one on the queue.
+Also, this middleware is removed from the queue.</p>
+
+            
+    <p>If the queue is empty a <code>RuntimeException</code>
+ is thrown, so make sure to check the queue&#039;s length (e.g. with <code>count()</code>
+)
+before trying to dequeue an item!</p>
+
+    </div>
+
+    </div>
+
     </div>
 
                             </div>

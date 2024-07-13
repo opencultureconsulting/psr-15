@@ -53,7 +53,6 @@ have exactly the same result.
     $requestHandler->queue->enqueue(new MiddlewareOne());
     $requestHandler->queue->enqueue(new MiddlewareTwo());
 
-
 HTTP Server Request
 -------------------
 
