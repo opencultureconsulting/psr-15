@@ -109,12 +109,18 @@ class QueueRequestHandler implements RequestHandler
                         'max_range' => 599
                     ]
                 ];
-                $statusCode = filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options);
                 $this->response = new GuzzleResponse(
-                    $statusCode,
-                    [],
+                    filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options),
+                    [
+                        'Warning' => [sprintf(
+                            'Error %d in %s',
+                            $exception->getCode(),
+                            get_debug_type($middleware)
+                        )]
+                    ],
                     sprintf(
-                        'Exception thrown in middleware %s: %s',
+                        'Exception %d thrown in middleware %s: %s',
+                        $exception->getCode(),
                         get_debug_type($middleware),
                         $exception->getMessage()
                     )
@@ -210,7 +216,7 @@ class QueueRequestHandler implements RequestHandler
     {
         $this->request = GuzzleRequest::fromGlobals();
         $this->queue = MiddlewareQueue::getInstance($middlewares);
-        $this->response = new GuzzleResponse(200);
+        $this->response = new GuzzleResponse();
     }
 
     /**
