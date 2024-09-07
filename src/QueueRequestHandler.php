@@ -38,7 +38,6 @@ use function filter_var;
 use function get_debug_type;
 use function header;
 use function headers_sent;
-use function is_null;
 use function sprintf;
 
 /**
@@ -128,17 +127,13 @@ class QueueRequestHandler implements RequestHandler
     /**
      * Return the current response to the client.
      *
-     * @param ?int $exitCode Exit status after sending out the response or NULL to continue
-     *
-     *                       Must be in the range 0 to 254. The status 0 is used to terminate the program successfully.
-     *
      * @return void
      *
      * @throws RuntimeException if headers were already sent
      *
      * @api
      */
-    public function respond(?int $exitCode = null): void
+    public function respond(): void
     {
         $file = 'unknown file';
         $line = 0;
@@ -166,17 +161,6 @@ class QueueRequestHandler implements RequestHandler
             header($header, false);
         }
         echo $this->response->getBody();
-        if (!is_null($exitCode)) {
-            $options = [
-                'options' => [
-                    'default' => 1,
-                    'min_range' => 0,
-                    'max_range' => 254
-                ]
-            ];
-            $exitCode = filter_var($exitCode, FILTER_VALIDATE_INT, $options);
-            exit($exitCode);
-        }
     }
 
     /**
