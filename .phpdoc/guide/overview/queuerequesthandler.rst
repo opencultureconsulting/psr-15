@@ -97,12 +97,10 @@ implements `Psr\Http\Message\ResponseInterface`.
 
 In case of an error the request handler catches any exception and creates a response with the exception code as status
 code (if it's within the valid range of HTTP status codes, otherwise it's set to `500 (Internal Server Error)`), and
-the exception message as body.
+the exception message as body. Such a response can be identified by having a `Warning` header set including the error
+code and the affected middleware.
 
 Sending the Response
 --------------------
 
 Sending the final response to the client is as easy as calling :php:method:`OCC\PSR15\QueueRequestHandler::respond()`.
-Optionally, you can provide an exit code as argument (an integer in the range `0` to `254`). If you do so, script
-execution is stopped after sending out the response and the given exit status is set. The status `0` means the request
-was handled successfully, every other status is considered an error.

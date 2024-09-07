@@ -150,7 +150,7 @@
 </aside>
 
             <div class="phpdocumentor-column -nine phpdocumentor-content">
-                                        <div class="section" id="abstractmiddleware">
+                                        <section class="section " id="abstractmiddleware">
             <h1>AbstractMiddleware</h1>
 
             <div class="admonition-wrapper">
@@ -197,11 +197,11 @@ both as needed.</p>
 
             
     <p>The <code>AbstractMiddleware</code>
- implements the
-<a href="https://www.php-fig.org/psr/psr-15/#22-psrhttpservermiddlewareinterface">Psr\Http\Server\MiddlewareInterface</a>
-following PHP-FIG&#039;s recommendation <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a>.</p>
+ implements the <code>Psr\Http\Server\MiddlewareInterface</code>
+ following PHP-FIG&#039;s recommendation
+<a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a>.</p>
 
-            <div class="section" id="properties">
+            <section class="section " id="properties">
             <h2>Properties</h2>
 
             
@@ -211,9 +211,9 @@ following PHP-FIG&#039;s recommendation <a href="https://www.php-fig.org/psr/psr
 handler which called the middleware. This can be used to access the request and/or response object (as properties of
 <a href="guides/overview/queuerequesthandler.html">QueueRequestHandler</a>) when they are otherwise not available.</p>
 
-    </div>
+    </section>
 
-            <div class="section" id="methods">
+            <section class="section " id="methods">
             <h2>Methods</h2>
 
             
@@ -232,7 +232,7 @@ to receive a response, which is then processed by <a href="classes/OCC-PSR15-Abs
  before
 returning it back to the request handler again.</p>
 
-            <div class="section" id="processing-a-request">
+            <section class="section " id="processing-a-request">
             <h3>Processing a Request</h3>
 
             
@@ -242,11 +242,12 @@ have to implement your own <code>processRequest()</code>
  method. It takes a request object as only argument and must return a
 valid request object as well. Just make sure it follows PHP-FIG&#039;s standard recommendation
 <a href="https://www.php-fig.org/psr/psr-7/">PSR-7: HTTP Message Interfaces</a> and implements the
-<a href="https://www.php-fig.org/psr/psr-7/#321-psrhttpmessageserverrequestinterface">Psr\Http\Message\ServerRequestInterface</a>.</p>
+<code>Psr\Http\Message\ServerRequestInterface</code>
+.</p>
 
-    </div>
+    </section>
 
-            <div class="section" id="processing-a-response">
+            <section class="section " id="processing-a-response">
             <h3>Processing a Response</h3>
 
             
@@ -256,13 +257,14 @@ you have to implement your own <code>processResponse()</code>
  method. It takes a response object as only argument and must return
 a valid response object as well. Just make sure it follows PHP-FIG&#039;s standard recommendation
 <a href="https://www.php-fig.org/psr/psr-7/">PSR-7: HTTP Message Interfaces</a> and implements the
-<a href="https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface">Psr\Http\Message\ResponseInterface</a>.</p>
+<code>Psr\Http\Message\ResponseInterface</code>
+.</p>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
                             </div>
             <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">

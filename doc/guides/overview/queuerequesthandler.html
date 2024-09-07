@@ -150,7 +150,7 @@
 </aside>
 
             <div class="phpdocumentor-column -nine phpdocumentor-content">
-                                        <div class="section" id="queuerequesthandler">
+                                        <section class="section " id="queuerequesthandler">
             <h1>QueueRequestHandler</h1>
 
             <div class="admonition-wrapper">
@@ -215,14 +215,14 @@ a middleware and turns them into a proper HTTP error response.</p>
 
             
     <p>The <code>QueueRequestHandler</code>
- implements the
-<a href="https://www.php-fig.org/psr/psr-15/#21-psrhttpserverrequesthandlerinterface">Psr\Http\Server\RequestHandlerInterface</a>
-following PHP-FIG&#039;s recommendation <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a>.</p>
+ implements the <code>Psr\Http\Server\RequestHandlerInterface</code>
+ following PHP-FIG&#039;s recommendation
+<a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a>.</p>
 
             
     <p>For a minimal working example have a look at <a href="guides/usage/usage.html">Usage</a>.</p>
 
-            <div class="section" id="properties">
+            <section class="section " id="properties">
             <h2>Properties</h2>
 
             
@@ -232,7 +232,7 @@ following PHP-FIG&#039;s recommendation <a href="https://www.php-fig.org/psr/psr
 directly accessed from the object via magic methods (e.g. <code>$requestHandler-&gt;queue</code>
 ).</p>
 
-            <div class="section" id="middleware-queue">
+            <section class="section " id="middleware-queue">
             <h3>Middleware Queue</h3>
 
             
@@ -268,16 +268,17 @@ $requestHandler-&gt;queue-&gt;enqueue(new MiddlewareOne());
 $requestHandler-&gt;queue-&gt;enqueue(new MiddlewareTwo());</code></pre>
 </blockquote>
 
-    </div>
+    </section>
 
-            <div class="section" id="http-server-request">
+            <section class="section " id="http-server-request">
             <h3>HTTP Server Request</h3>
 
             
     <p>The server request is always available as <code>QueueRequestHandler::request</code>
 . It follows PHP-FIG&#039;s standard recommendation
 <a href="https://www.php-fig.org/psr/psr-7/">PSR-7: HTTP Message Interfaces</a> and implements the
-<a href="https://www.php-fig.org/psr/psr-7/#321-psrhttpmessageserverrequestinterface">Psr\Http\Message\ServerRequestInterface</a>.</p>
+<code>Psr\Http\Message\ServerRequestInterface</code>
+.</p>
 
             
     <p>When instantiating a <code>QueueRequestHandler</code>
@@ -286,16 +287,17 @@ $requestHandler-&gt;queue-&gt;enqueue(new MiddlewareTwo());</code></pre>
 request data from superglobals. The property is reset each time the request is passed through a middleware and thus
 always represents the current state of the request.</p>
 
-    </div>
+    </section>
 
-            <div class="section" id="http-response">
+            <section class="section " id="http-response">
             <h3>HTTP Response</h3>
 
             
     <p>The response can be read as <code>QueueRequestHandler::response</code>
 . It also follows PHP-FIG&#039;s standard recommendation
 <a href="https://www.php-fig.org/psr/psr-7/">PSR-7: HTTP Message Interfaces</a> and implements the
-<a href="https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface">Psr\Http\Message\ResponseInterface</a>.</p>
+<code>Psr\Http\Message\ResponseInterface</code>
+.</p>
 
             
     <p>When instantiating a <code>QueueRequestHandler</code>
@@ -308,11 +310,11 @@ always represents the latest state of the response.</p>
             
     <p>Both, request and response, use the awesome implementations of <a href="https://github.com/guzzle/psr7">Guzzle</a>.</p>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
-            <div class="section" id="methods">
+            <section class="section " id="methods">
             <h2>Methods</h2>
 
             
@@ -325,7 +327,7 @@ while the latter sends the response back to the client. Invoking the request han
 calling the <code>handle()</code>
  method.</p>
 
-            <div class="section" id="handling-a-server-request">
+            <section class="section " id="handling-a-server-request">
             <h3>Handling a Server Request</h3>
 
             
@@ -346,28 +348,24 @@ implements <code>Psr\Http\Message\ResponseInterface</code>
     <p>In case of an error the request handler catches any exception and creates a response with the exception code as status
 code (if it&#039;s within the valid range of HTTP status codes, otherwise it&#039;s set to <code>500 (Internal Server Error)</code>
 ), and
-the exception message as body.</p>
+the exception message as body. Such a response can be identified by having a <code>Warning</code>
+ header set including the error
+code and the affected middleware.</p>
 
-    </div>
+    </section>
 
-            <div class="section" id="sending-the-response">
+            <section class="section " id="sending-the-response">
             <h3>Sending the Response</h3>
 
             
     <p>Sending the final response to the client is as easy as calling <a href="classes/OCC-PSR15-QueueRequestHandler.html#method_respond"><abbr title="\OCC\PSR15\QueueRequestHandler::respond()">QueueRequestHandler::respond()</abbr></a>
-.
-Optionally, you can provide an exit code as argument (an integer in the range <code>0</code>
- to <code>254</code>
-). If you do so, script
-execution is stopped after sending out the response and the given exit status is set. The status <code>0</code>
- means the request
-was handled successfully, every other status is considered an error.</p>
+.</p>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
                             </div>
             <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">

@@ -150,7 +150,7 @@
 </aside>
 
             <div class="phpdocumentor-column -nine phpdocumentor-content">
-                                        <div class="section" id="middlewarequeue">
+                                        <section class="section " id="middlewarequeue">
             <h1>MiddlewareQueue</h1>
 
             <div class="admonition-wrapper">
@@ -187,7 +187,8 @@
  manages the middlewares involved in processing a server request. It makes sure they are called in
 first-in, first-out (FIFO) order, i.e. the same order they were added to the queue. It also ensures all middlewares are
 implementing the <a href="https://www.php-fig.org/psr/psr-15/">PSR-15: HTTP Server Request Handlers</a> specification for the
-<a href="https://www.php-fig.org/psr/psr-15/#22-psrhttpservermiddlewareinterface">Psr\Http\Server\MiddlewareInterface</a>.</p>
+<code>Psr\Http\Server\MiddlewareInterface</code>
+.</p>
 
             
     <p>When instantiating a <code>MiddlewareQueue</code>
@@ -215,10 +216,10 @@ $queue-&gt;enqueue(new MiddlewareTwo());</code></pre>
 
             
     <p>The <code>MiddlewareQueue</code>
- is based on a
-<a href="https://opencultureconsulting.github.io/php-basics/guides/overview/datastructures.html#strictqueue">OCC\Basics\DataStructures\StrictQueue</a>.</p>
+ is based on a <code>OCC\Basics\DataStructures\StrictQueue</code>
+.</p>
 
-            <div class="section" id="methods">
+            <section class="section " id="methods">
             <h2>Methods</h2>
 
             
@@ -233,7 +234,7 @@ returns the first item from the queue.</p>
     <p>For a complete API documentation have a look at the
 <a href="https://opencultureconsulting.github.io/php-basics/classes/OCC-Basics-DataStructures-StrictQueue.html">StrictQueue</a>.</p>
 
-            <div class="section" id="adding-a-middleware">
+            <section class="section " id="adding-a-middleware">
             <h3>Adding a Middleware</h3>
 
             
@@ -247,9 +248,9 @@ criterion an <code>OCC\Basics\DataStructures\Exceptions\InvalidDataTypeException
             
     <p>Have a look at the <a href="guides/overview/abstractmiddleware.html">AbstractMiddleware</a> for an easy way to create your own middlewares!</p>
 
-    </div>
+    </section>
 
-            <div class="section" id="fetching-the-next-in-line">
+            <section class="section " id="fetching-the-next-in-line">
             <h3>Fetching the next in line</h3>
 
             
@@ -263,11 +264,11 @@ Also, this middleware is removed from the queue.</p>
 )
 before trying to dequeue an item!</p>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
-    </div>
+    </section>
 
                             </div>
             <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">

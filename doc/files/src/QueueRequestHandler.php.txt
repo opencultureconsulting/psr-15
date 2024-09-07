@@ -38,7 +38,6 @@ use function filter_var;
 use function get_debug_type;
 use function header;
 use function headers_sent;
-use function is_null;
 use function sprintf;
 
 /**
@@ -110,12 +109,18 @@ class QueueRequestHandler implements RequestHandler
                         'max_range' => 599
                     ]
                 ];
-                $statusCode = filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options);
                 $this->response = new GuzzleResponse(
-                    $statusCode,
-                    [],
+                    filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options),
+                    [
+                        'Warning' => [sprintf(
+                            'Error %d in %s',
+                            $exception->getCode(),
+                            get_debug_type($middleware)
+                        )]
+                    ],
                     sprintf(
-                        'Exception thrown in middleware %s: %s',
+                        'Exception %d thrown in middleware %s: %s',
+                        $exception->getCode(),
                         get_debug_type($middleware),
                         $exception->getMessage()
                     )
@@ -128,17 +133,13 @@ class QueueRequestHandler implements RequestHandler
     /**
      * Return the current response to the client.
      *
-     * @param ?int $exitCode Exit status after sending out the response or NULL to continue
-     *
-     *                       Must be in the range 0 to 254. The status 0 is used to terminate the program successfully.
-     *
      * @return void
      *
      * @throws RuntimeException if headers were already sent
      *
      * @api
      */
-    public function respond(?int $exitCode = null): void
+    public function respond(): void
     {
         $file = 'unknown file';
         $line = 0;
@@ -166,17 +167,6 @@ class QueueRequestHandler implements RequestHandler
             header($header, false);
         }
         echo $this->response->getBody();
-        if (!is_null($exitCode)) {
-            $options = [
-                'options' => [
-                    'default' => 1,
-                    'min_range' => 0,
-                    'max_range' => 254
-                ]
-            ];
-            $exitCode = filter_var($exitCode, FILTER_VALIDATE_INT, $options);
-            exit($exitCode);
-        }
     }
 
     /**
@@ -226,7 +216,7 @@ class QueueRequestHandler implements RequestHandler
     {
         $this->request = GuzzleRequest::fromGlobals();
         $this->queue = MiddlewareQueue::getInstance($middlewares);
-        $this->response = new GuzzleResponse(200);
+        $this->response = new GuzzleResponse();
     }
 
     /**

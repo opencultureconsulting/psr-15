@@ -6,6 +6,19 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
+v1.2.0
+======
+
+**Minor Changes:**
+
+* Added a `Warning` header to identify response messages from converted exceptions
+* Removed the option to provide an exit status to :php:method:`OCC\PSR15\QueueRequestHandler::respond()`
+* Added Composer command for development tools (PHP Mess Detector, Psalm Taint Analysis)
+
+**Maintencance:**
+
+* Updated dependencies
+
 v1.1.0
 ======
 
