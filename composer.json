@@ -30,17 +30,17 @@
     },
     "require": {
         "php": "^8.1",
-        "guzzlehttp/psr7": "^2.6",
+        "guzzlehttp/psr7": "^2.7",
         "opencultureconsulting/basics": "^2.1",
         "psr/http-server-handler": "^1.0",
         "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
         "phpdocumentor/shim": "^3.5",
-        "phpstan/phpstan": "^1.11",
         "phpmd/phpmd": "^2.15",
+        "phpstan/phpstan": "^1.12",
         "phpstan/phpstan-strict-rules": "^1.6",
-        "friendsofphp/php-cs-fixer": "^3.59",
+        "friendsofphp/php-cs-fixer": "^3.64",
         "squizlabs/php_codesniffer": "^3.10",
         "vimeo/psalm": "^5.25"
     },
