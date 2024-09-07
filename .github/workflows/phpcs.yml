@@ -30,6 +30,6 @@ jobs:
       - name: Run PHPCS
         uses: php-actions/phpcs@v1
         with:
-          php_version: "8.1"
           path: src/
+          php_version: "8.1"
           standard: phpcs.xml.dist
