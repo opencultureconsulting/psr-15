@@ -100,6 +100,7 @@
     display: block;
     font-size: var(--text-sm);
     border: 1px solid #f0f0f0;
+    margin-bottom: calc(var(--spacing-sm));
 }
 
 .phpdocumentor .phpdocumentor-signature.-deprecated .phpdocumentor-signature__name {
@@ -406,4 +407,7 @@ h2.phpdocumentor-content__title
     span:first-letter
 {
     text-transform: lowercase;
+}
+.phpdocumentor-uml-diagram svg {
+    cursor: zoom-in;
 }
