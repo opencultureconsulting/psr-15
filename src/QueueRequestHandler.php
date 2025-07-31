@@ -50,7 +50,7 @@ use function sprintf;
  * @property-read ServerRequest $request
  * @property-read Response $response
  */
-class QueueRequestHandler implements RequestHandler
+final class QueueRequestHandler implements RequestHandler
 {
     use Getter;
 
