@@ -38,11 +38,9 @@ abstract class AbstractMiddleware implements MiddlewareInterface
     /**
      * The PSR-15 Server Request Handler.
      *
-     * @var QueueRequestHandler
-     *
      * @internal
      */
-    protected QueueRequestHandler $requestHandler;
+    protected RequestHandler $requestHandler;
 
     /**
      * Process an incoming server request and produce a response.
@@ -56,7 +54,6 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      */
     final public function process(ServerRequest $request, RequestHandler $handler): Response
     {
-        /** @var QueueRequestHandler $handler */
         $this->requestHandler = $handler;
         // Manipulate request if necessary.
         $request = $this->processRequest($request);

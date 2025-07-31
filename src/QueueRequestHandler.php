@@ -57,8 +57,6 @@ class QueueRequestHandler implements RequestHandler
     /**
      * The PSR-7 HTTP Server Request.
      *
-     * @var ServerRequest
-     *
      * @internal
      */
     protected ServerRequest $request;
@@ -66,16 +64,12 @@ class QueueRequestHandler implements RequestHandler
     /**
      * The queue of middlewares to process the server request.
      *
-     * @var MiddlewareQueue
-     *
      * @internal
      */
     protected MiddlewareQueue $queue;
 
     /**
      * The PSR-7 HTTP Response.
-     *
-     * @var Response
      *
      * @internal
      */
