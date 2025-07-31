@@ -50,14 +50,12 @@ use function sprintf;
  * @property-read ServerRequest $request
  * @property-read Response $response
  */
-class QueueRequestHandler implements RequestHandler
+final class QueueRequestHandler implements RequestHandler
 {
     use Getter;
 
     /**
      * The PSR-7 HTTP Server Request.
-     *
-     * @var ServerRequest
      *
      * @internal
      */
@@ -66,16 +64,12 @@ class QueueRequestHandler implements RequestHandler
     /**
      * The queue of middlewares to process the server request.
      *
-     * @var MiddlewareQueue
-     *
      * @internal
      */
     protected MiddlewareQueue $queue;
 
     /**
      * The PSR-7 HTTP Response.
-     *
-     * @var Response
      *
      * @internal
      */
@@ -90,6 +84,7 @@ class QueueRequestHandler implements RequestHandler
      *
      * @api
      */
+    #[\Override]
     public function handle(?ServerRequest $request = null): Response
     {
         $this->request = $request ?? $this->request;
@@ -149,7 +144,8 @@ class QueueRequestHandler implements RequestHandler
                     'Headers already sent in %s on line %d',
                     $file,
                     $line
-                )
+                ),
+                500
             );
         }
         header(

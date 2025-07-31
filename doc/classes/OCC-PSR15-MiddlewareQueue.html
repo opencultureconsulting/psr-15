@@ -178,6 +178,8 @@
 
 <div class="phpdocumentor-label-line">
 
+    <div class="phpdocumentor-label phpdocumentor-label--success"><span>Final</span><span>Yes</span></div>
+
 
 </div>
 
@@ -285,7 +287,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInstance</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">iterable&lt;string|int, <abbr title="\Psr\Http\Server\MiddlewareInterface">MiddlewareInterface</abbr>&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$middlewares</span><span> = </span><span class="phpdocumentor-signature__argument__default-value"></span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInstance</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">iterable&lt;string|int, <abbr title="\Psr\Http\Server\MiddlewareInterface">MiddlewareInterface</abbr>&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$middlewares</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -296,7 +298,7 @@
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$middlewares</span>
                 : <span class="phpdocumentor-signature__argument__return-type">iterable&lt;string|int, <abbr title="\Psr\Http\Server\MiddlewareInterface">MiddlewareInterface</abbr>&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value"></span>            </dt>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -398,6 +400,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 

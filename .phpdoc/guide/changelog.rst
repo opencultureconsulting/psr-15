@@ -6,6 +6,14 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
+v1.2.1
+======
+
+**Maintenance:**
+
+* Updated dependencies
+* Added annotations, removed redundant type hints, and made classes final where appropriate
+
 v1.2.0
 ======
 

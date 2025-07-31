@@ -298,9 +298,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/AbstractMiddleware.php"><a href="files/src-abstractmiddleware.html"><abbr title="src/AbstractMiddleware.php">AbstractMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 
-            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.103" class="phpdocumentor-element-found-in__source" data-line="103" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
+            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.101" class="phpdocumentor-element-found-in__source" data-line="101" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Allow the middleware to be invoked directly.</p>
@@ -363,9 +363,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/AbstractMiddleware.php"><a href="files/src-abstractmiddleware.html"><abbr title="src/AbstractMiddleware.php">AbstractMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
-            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.57" class="phpdocumentor-element-found-in__source" data-line="57" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
+            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.55" class="phpdocumentor-element-found-in__source" data-line="55" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Process an incoming server request and produce a response.</p>
@@ -405,6 +405,17 @@
     
 
     
+    <section class="phpdocumentor-attributes">
+        <h5 class="phpdocumentor-elements__header" id="attributes">
+            Attributes <a href="classes/OCC-PSR15-AbstractMiddleware.html#method_process#attributes" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h5>
+                    <dl class="phpdocumentor-argument-list">
+    <dt class="phpdocumentor-argument-list__entry">
+        #[<abbr title="\Override">Override</abbr>]
+    </dt>
+    </dl>
+            </section>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -430,9 +441,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/AbstractMiddleware.php"><a href="files/src-abstractmiddleware.html"><abbr title="src/AbstractMiddleware.php">AbstractMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
-            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.78" class="phpdocumentor-element-found-in__source" data-line="78" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
+            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.76" class="phpdocumentor-element-found-in__source" data-line="76" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Process an incoming server request before delegating to next middleware.</p>
@@ -486,9 +497,9 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/AbstractMiddleware.php"><a href="files/src-abstractmiddleware.html"><abbr title="src/AbstractMiddleware.php">AbstractMiddleware.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
-            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.90" class="phpdocumentor-element-found-in__source" data-line="90" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
+            <a href="classes/OCC-PSR15-AbstractMiddleware.html#source-view.88" class="phpdocumentor-element-found-in__source" data-line="88" data-modal="source-view" data-src="files/src/AbstractMiddleware.php.txt"></a>
     </aside>
 
         <p class="phpdocumentor-summary">Process an incoming response before returning it to previous middleware.</p>
@@ -566,6 +577,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 

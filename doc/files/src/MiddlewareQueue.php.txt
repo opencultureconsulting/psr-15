@@ -36,7 +36,7 @@ use Psr\Http\Server\MiddlewareInterface as Middleware;
  *
  * @extends StrictQueue<Middleware>
  */
-class MiddlewareQueue extends StrictQueue
+final class MiddlewareQueue extends StrictQueue
 {
     use Singleton;
 
