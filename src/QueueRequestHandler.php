@@ -144,7 +144,8 @@ final class QueueRequestHandler implements RequestHandler
                     'Headers already sent in %s on line %d',
                     $file,
                     $line
-                )
+                ),
+                500
             );
         }
         header(
