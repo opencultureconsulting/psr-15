@@ -84,6 +84,7 @@ final class QueueRequestHandler implements RequestHandler
      *
      * @api
      */
+    #[\Override]
     public function handle(?ServerRequest $request = null): Response
     {
         $this->request = $request ?? $this->request;

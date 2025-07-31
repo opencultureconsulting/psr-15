@@ -52,6 +52,7 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      *
      * @api
      */
+    #[\Override]
     final public function process(ServerRequest $request, RequestHandler $handler): Response
     {
         $this->requestHandler = $handler;
