@@ -6,6 +6,17 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
+v1.3.0
+======
+
+**Minor Changes:**
+
+* Added check in :php:method:`OCC\PSR15\AbstractMiddleware::process()` to ensure correct request handler type
+
+**Maintenance:**
+
+* Raised PHPStan rule level to 10
+
 v1.2.1
 ======
 
