@@ -55,25 +55,25 @@ final class QueueRequestHandler implements RequestHandler
     use Getter;
 
     /**
-     * The PSR-7 HTTP Server Request.
-     *
-     * @internal
-     */
-    protected ServerRequest $request;
-
-    /**
      * The queue of middlewares to process the server request.
      *
      * @internal
      */
-    protected MiddlewareQueue $queue;
+    private readonly MiddlewareQueue $queue;
+
+    /**
+     * The PSR-7 HTTP Server Request.
+     *
+     * @internal
+     */
+    private ServerRequest $request;
 
     /**
      * The PSR-7 HTTP Response.
      *
      * @internal
      */
-    protected Response $response;
+    private Response $response;
 
     /**
      * Handles a request by invoking a queue of middlewares.
