@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace OCC\PSR15;
 
+use DomainException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface;
@@ -40,7 +41,7 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      *
      * @internal
      */
-    protected RequestHandler $requestHandler;
+    protected QueueRequestHandler $requestHandler;
 
     /**
      * Process an incoming server request and produce a response.
@@ -50,16 +51,28 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      *
      * @return Response The response object
      *
+     * @throws DomainException if request handler is not a QueueRequestHandler
+     *
      * @api
      */
     #[\Override]
     final public function process(ServerRequest $request, RequestHandler $handler): Response
     {
+        if (!$handler instanceof QueueRequestHandler) {
+            throw new DomainException(
+                sprintf(
+                    'Expected instance of %s, got %s',
+                    QueueRequestHandler::class,
+                    get_debug_type($handler)
+                ),
+                500
+            );
+        }
         $this->requestHandler = $handler;
         // Manipulate request if necessary.
         $request = $this->processRequest($request);
         // Delegate request to next middleware and get response.
-        $response = $handler->handle($request);
+        $response = $this->requestHandler->handle($request);
         // Manipulate response if necessary.
         $response = $this->processResponse($response);
         // Return response to previous middleware.
