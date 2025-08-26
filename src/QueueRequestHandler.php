@@ -35,7 +35,6 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use function array_keys;
 use function count;
 use function filter_var;
-use function get_debug_type;
 use function header;
 use function headers_sent;
 use function sprintf;
@@ -76,6 +75,45 @@ final class QueueRequestHandler implements RequestHandler
     private Response $response;
 
     /**
+     * Converts an exception into a PSR-7 HTTP response.
+     *
+     * @param Exception $exception The exception to convert
+     *
+     * @return Response A PSR-7 compatible HTTP response
+     *
+     * @internal
+     */
+    protected function convert(Exception $exception): Response
+    {
+        return new GuzzleResponse(
+            filter_var(
+                $exception->getCode(),
+                \FILTER_VALIDATE_INT,
+                [
+                    'options' => [
+                        'default' => 500,
+                        'min_range' => 100,
+                        'max_range' => 599
+                    ]
+                ]
+            ),
+            [
+                'Warning' => [sprintf(
+                    'Error %d in %s',
+                    $exception->getCode(),
+                    $exception->getTrace()[0]['class'] ?? 'Unknown'
+                )]
+            ],
+            sprintf(
+                'Exception %d thrown in middleware %s: %s',
+                $exception->getCode(),
+                $exception->getTrace()[0]['class'] ?? 'Unknown',
+                $exception->getMessage()
+            )
+        );
+    }
+
+    /**
      * Handles a request by invoking a queue of middlewares.
      *
      * @param ?ServerRequest $request The PSR-7 server request to handle
@@ -97,29 +135,7 @@ final class QueueRequestHandler implements RequestHandler
             try {
                 $this->response = $middleware->process($this->request, $this);
             } catch (Exception $exception) {
-                $options = [
-                    'options' => [
-                        'default' => 500,
-                        'min_range' => 100,
-                        'max_range' => 599
-                    ]
-                ];
-                $this->response = new GuzzleResponse(
-                    filter_var($exception->getCode(), FILTER_VALIDATE_INT, $options),
-                    [
-                        'Warning' => [sprintf(
-                            'Error %d in %s',
-                            $exception->getCode(),
-                            get_debug_type($middleware)
-                        )]
-                    ],
-                    sprintf(
-                        'Exception %d thrown in middleware %s: %s',
-                        $exception->getCode(),
-                        get_debug_type($middleware),
-                        $exception->getMessage()
-                    )
-                );
+                $this->response = $this->convert($exception);
             }
         }
         return $this->response;
@@ -205,8 +221,6 @@ final class QueueRequestHandler implements RequestHandler
      * Create a queue-based PSR-15 HTTP Server Request Handler.
      *
      * @param iterable<array-key, Middleware> $middlewares Initial set of middlewares
-     *
-     * @return void
      */
     public function __construct(iterable $middlewares = [])
     {
