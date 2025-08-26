@@ -6,6 +6,15 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
+v1.3.1
+======
+
+**Maintenance:**
+
+* Moved exception handling from :php:method:`OCC\PSR15\QueueRequestHandler::handle()` to separate method for better
+  readability
+* Updated links to `documentation <https://code.opencultureconsulting.com/psr-15/>`_
+
 v1.3.0
 ======
 
@@ -43,7 +52,7 @@ v1.1.0
 
 **New Features:**
 
-* Extended `documentation <https://opencultureconsulting.github.io/psr-15/>`_
+* Extended `documentation <https://code.opencultureconsulting.com/psr-15/>`_
 
 **Minor Changes:**
 

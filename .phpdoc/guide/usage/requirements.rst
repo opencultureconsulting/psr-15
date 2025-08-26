@@ -22,6 +22,6 @@ and `psr/http-server-middleware <https://packagist.org/packages/psr/http-server-
 It uses the `PSR-7: HTTP Message <https://www.php-fig.org/psr/psr-7/>`_ implementations for server request and response
 of the great `guzzlehttp/psr7 <https://packagist.org/packages/guzzlehttp/psr7>`_ library.
 
-The middleware queue is based on a `StrictQueue <https://opencultureconsulting.github.io/php-basics/guides/overview/datastructures.html#strictqueue>`_
+The middleware queue is based on a `StrictQueue <https://code.opencultureconsulting.com/php-basics/guides/overview/datastructures.html#strictqueue>`_
 of the `opencultureconsulting/basics <https://packagist.org/packages/opencultureconsulting/basics>`_ package which also
 provides some useful traits.

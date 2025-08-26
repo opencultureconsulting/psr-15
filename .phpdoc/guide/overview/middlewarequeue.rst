@@ -45,7 +45,7 @@ being the most relevant ones. The former will add a new item at the end of the q
 returns the first item from the queue.
 
 For a complete API documentation have a look at the
-`StrictQueue <https://opencultureconsulting.github.io/php-basics/classes/OCC-Basics-DataStructures-StrictQueue.html>`_.
+`StrictQueue <https://code.opencultureconsulting.com/php-basics/classes/OCC-Basics-DataStructures-StrictQueue.html>`_.
 
 Adding a Middleware
 -------------------

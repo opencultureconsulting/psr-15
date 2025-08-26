@@ -12,7 +12,7 @@
         "http-server-handler",
         "http-server-middleware"
     ],
-    "homepage": "https://github.com/opencultureconsulting/psr-15",
+    "homepage": "https://code.opencultureconsulting.com/psr-15/",
     "readme": "README.md",
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -26,7 +26,7 @@
     "support": {
         "issues": "https://github.com/opencultureconsulting/psr-15/issues",
         "source": "https://github.com/opencultureconsulting/psr-15",
-        "docs": "https://opencultureconsulting.github.io/psr-15/"
+        "docs": "https://code.opencultureconsulting.com/psr-15/"
     },
     "require": {
         "php": "^8.1",
@@ -40,7 +40,7 @@
         "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "friendsofphp/php-cs-fixer": "^3.85",
+        "friendsofphp/php-cs-fixer": "^3.86",
         "squizlabs/php_codesniffer": "^3.13",
         "vimeo/psalm": "^6.13"
     },

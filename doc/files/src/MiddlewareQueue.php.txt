@@ -44,8 +44,6 @@ final class MiddlewareQueue extends StrictQueue
      * Create a queue of PSR-15 compatible middlewares.
      *
      * @param iterable<array-key, Middleware> $middlewares Initial set of PSR-15 middlewares
-     *
-     * @return void
      */
     private function __construct(iterable $middlewares = [])
     {
