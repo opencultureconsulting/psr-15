@@ -37,7 +37,7 @@
     },
     "require-dev": {
         "phpdocumentor/shim": "^3.8",
-        "phpmd/phpmd": "^2.15",
+        "phpmd/phpmd": "^3.0",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.86",
