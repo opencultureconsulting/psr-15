@@ -37,7 +37,7 @@
     },
     "require-dev": {
         "phpdocumentor/shim": "^3.8",
-        "phpmd/phpmd": "^2.15",
+        "phpmd/phpmd": "^3.0",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.86",
@@ -73,7 +73,7 @@
         ],
         "phpmd:check": [
             "@php -r \"if (!file_exists('./.phpmd.xml')) { copy('./.phpmd.dist.xml', './.phpmd.xml'); }\"",
-            "@php vendor/bin/phpmd src/ ansi .phpmd.xml --cache --ignore-violations-on-exit"
+            "@php vendor/bin/phpmd analyze --format=ansi --ruleset=.phpmd.xml --cache --ignore-violations-on-exit src/"
         ],
         "phpstan:check": [
             "@php vendor/bin/phpstan"
