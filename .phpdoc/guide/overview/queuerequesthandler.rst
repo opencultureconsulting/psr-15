@@ -95,6 +95,12 @@ don't need to. All request objects must implement `Psr\Http\Message\ServerReques
 The `handle()` method returns the final response after passing it through all middlewares. The response object always
 implements `Psr\Http\Message\ResponseInterface`.
 
+Every call of `handle()` works on its own copy of the queue, so you can call it again with another request and it will
+run through the same middlewares from the beginning. This makes it possible to reuse one request handler for many
+requests, e.g. in long-running PHP servers. While a request is being handled, `QueueRequestHandler::queue` returns the
+copy for that request. So if a middleware adds or removes other middlewares, this only applies to the current request
+and not to subsequent ones.
+
 In case of an error the request handler catches any exception and creates a response with the exception code as status
 code (if it's within the valid range of HTTP status codes, otherwise it's set to `500 (Internal Server Error)`), and
 the exception message as body. Such a response can be identified by having a `Warning` header set including the error

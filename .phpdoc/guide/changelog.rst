@@ -15,6 +15,11 @@ Unreleased
   :php:class:`OCC\PSR15\QueueRequestHandler` now gets its own queue of middlewares. Previously all handlers shared one
   queue and middlewares passed to any but the first handler were silently ignored. Use `new MiddlewareQueue()` instead of
   `MiddlewareQueue::getInstance()`.
+* :php:method:`OCC\PSR15\QueueRequestHandler::handle()` now works on a copy of the middleware queue for each request,
+  so one handler can process any number of requests (e.g. in long-running servers like RoadRunner, Swoole or
+  FrankenPHP). Previously every call after the first returned the stale response of the first run without invoking any
+  middleware. While a request is being handled, `QueueRequestHandler::queue` returns that request's copy, so changes
+  made by middlewares only apply to the current request.
 
 v1.3.1
 ======

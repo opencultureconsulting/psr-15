@@ -76,6 +76,20 @@ final class QueueRequestHandler implements RequestHandler
     private Response $response;
 
     /**
+     * The server request used when handle() is called without one.
+     *
+     * @internal
+     */
+    private readonly ServerRequest $initialRequest;
+
+    /**
+     * The copy of the queue used while a request is being handled.
+     *
+     * @internal
+     */
+    private ?MiddlewareQueue $currentQueue = null;
+
+    /**
      * Converts an exception into a PSR-7 HTTP response.
      *
      * @param Exception $exception The exception to convert
@@ -117,6 +131,10 @@ final class QueueRequestHandler implements RequestHandler
     /**
      * Handles a request by invoking a queue of middlewares.
      *
+     * Each top-level call works on its own copy of the queue, so the same handler
+     * can process any number of requests. Changes to the queue made while handling
+     * a request only apply to that request.
+     *
      * @param ?ServerRequest $request The PSR-7 server request to handle
      *
      * @return Response A PSR-7 compatible HTTP response
@@ -126,20 +144,48 @@ final class QueueRequestHandler implements RequestHandler
     #[Override]
     public function handle(?ServerRequest $request = null): Response
     {
+        // A middleware delegating to the next one keeps the current request
+        // as default, a new top-level call starts over with a clean state.
         $this->request = $request ?? $this->request;
-        if (count($this->queue) > 0) {
-            $middleware = $this->queue->dequeue();
-            // It is RECOMMENDED that any application using middleware includes a
-            // component that catches exceptions and converts them into responses.
-            // This middleware SHOULD be the first component executed and wrap all
-            // further processing to ensure that a response is always generated.
-            try {
-                $this->response = $middleware->process($this->request, $this);
-            } catch (Exception $exception) {
-                $this->response = $this->convert($exception);
+        $isNewRun = $this->currentQueue === null;
+        if ($isNewRun) {
+            $this->currentQueue = clone $this->queue;
+            $this->request = $request ?? $this->initialRequest;
+            $this->response = new GuzzleResponse();
+        }
+        try {
+            $this->processNextMiddleware();
+        } finally {
+            if ($isNewRun) {
+                $this->currentQueue = null;
             }
         }
         return $this->response;
+    }
+
+    /**
+     * Passes the current request to the next middleware in the current queue.
+     *
+     * @return void
+     *
+     * @internal
+     */
+    private function processNextMiddleware(): void
+    {
+        $queue = $this->currentQueue;
+        if ($queue === null || count($queue) === 0) {
+            return;
+        }
+        $middleware = $queue->dequeue();
+        // It is RECOMMENDED that any application using middleware includes a
+        // component that catches exceptions and converts them into responses.
+        // This middleware SHOULD be the first component executed and wrap all
+        // further processing to ensure that a response is always generated.
+        try {
+            $this->response = $middleware->process($this->request, $this);
+        } catch (Exception $exception) {
+            $this->response = $this->convert($exception);
+        }
     }
 
     /**
@@ -185,13 +231,16 @@ final class QueueRequestHandler implements RequestHandler
     /**
      * Magic getter method for $this->queue.
      *
+     * While a request is being handled this returns the copy of the queue used
+     * for that request, otherwise the queue the handler was configured with.
+     *
      * @return MiddlewareQueue The queue of PSR-15 middlewares
      *
      * @internal
      */
     protected function _magicGetQueue(): MiddlewareQueue
     {
-        return $this->queue;
+        return $this->currentQueue ?? $this->queue;
     }
 
     /**
@@ -225,7 +274,8 @@ final class QueueRequestHandler implements RequestHandler
      */
     public function __construct(iterable $middlewares = [])
     {
-        $this->request = GuzzleRequest::fromGlobals();
+        $this->initialRequest = GuzzleRequest::fromGlobals();
+        $this->request = $this->initialRequest;
         $this->queue = new MiddlewareQueue($middlewares);
         $this->response = new GuzzleResponse();
     }
