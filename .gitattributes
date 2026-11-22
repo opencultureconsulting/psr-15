@@ -112,13 +112,9 @@ psalm.xml    text eol=lf
 *.xml.dist      text eol=lf
 *.neon          text eol=lf
 
-# Generated documentation
-doc/*           linguist-generated=true
-
 # Exclude development files from exporting (i.e. from the Composer package)
 /.github                export-ignore
 /.phpdoc                export-ignore
-/doc                    export-ignore
 /tests                  export-ignore
 /.editorconfig          export-ignore
 /.php-cs-fixer.dist.php export-ignore

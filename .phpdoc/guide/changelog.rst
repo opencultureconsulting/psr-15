@@ -62,6 +62,9 @@ Unreleased
   to 8.5) on GitHub
 * Excluded the documentation, tests and configuration files of development tools from the Composer package, so it only
   contains the source code, `composer.json`, `LICENSE` and `README.md`
+* The documentation is no longer part of the repository, but built and deployed to
+  `GitHub Pages <https://code.opencultureconsulting.com/psr-15/>`_ automatically for every release. To read it
+  offline, build it locally with `composer phpdoc:build`
 
 v1.3.1
 ======
