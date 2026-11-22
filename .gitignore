@@ -1,5 +1,6 @@
 /.phpdoc/cache/
 /.vscode/
+/doc/
 /vendor/
 .php-cs-fixer.cache
 .php-cs-fixer.php
