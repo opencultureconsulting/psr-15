@@ -96,7 +96,8 @@ gets to handle the response before `MiddlewareOne`). Let's go with `MiddlewareTw
        */
       protected function processResponse(Response $response): Response
       {
-          // First we need to get the request attribute.
+          // First we need to get the request attribute. Since we use the
+          // QueueRequestHandler, we can access the current request as its property.
           $lastMiddlewarePassed = $this->requestHandler->request->getAttribute('LastMiddlewarePassed');
           if ($lastMiddlewarePassed === 'MiddlewareTwo') {
               // Great, MiddlewareTwo was passed after MiddlewareOne,

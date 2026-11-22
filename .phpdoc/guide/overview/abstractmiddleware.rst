@@ -18,8 +18,20 @@ Properties
 ==========
 
 The `AbstractMiddleware` has a single protected property `AbstractMiddleware::requestHandler` referencing the request
-handler which called the middleware. This can be used to access the request and/or response object (as properties of
-:doc:`queuerequesthandler`) when they are otherwise not available.
+handler which called the middleware.
+
+The `AbstractMiddleware` works with any request handler implementing the `Psr\Http\Server\RequestHandlerInterface`, so
+you can use your middlewares with other PSR-15 frameworks as well. If the request handler is a
+:doc:`queuerequesthandler`, the property can be used to access the request and/or response object (as properties of
+the request handler) when they are otherwise not available. Other request handlers usually don't have those properties,
+so check the type of the request handler first if your middleware should work with them, too.
+
+  Example:
+
+  .. code-block:: php
+    if ($this->requestHandler instanceof QueueRequestHandler) {
+        $request = $this->requestHandler->request;
+    }
 
 Methods
 =======

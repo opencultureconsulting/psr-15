@@ -26,6 +26,13 @@ Unreleased
   into responses. Error responses no longer reveal any details to the client and the `Warning` header was removed (see
   below).
 
+* :php:class:`OCC\PSR15\AbstractMiddleware` now works with any request handler implementing
+  `Psr\Http\Server\RequestHandlerInterface` instead of throwing a `DomainException` for anything but a
+  :php:class:`OCC\PSR15\QueueRequestHandler`. Therefore the type of the protected property
+  `AbstractMiddleware::requestHandler` changed to `RequestHandlerInterface`. Middlewares accessing properties of
+  `QueueRequestHandler` (e.g. `$this->requestHandler->request`) still work with it, but static analyzers will report
+  them unless you check the type with `instanceof QueueRequestHandler` first.
+
 **Minor Changes:**
 
 * Added :php:class:`OCC\PSR15\ErrorMiddleware` to convert any exception or error (i.e. every `Throwable`) into an
