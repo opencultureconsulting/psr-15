@@ -131,6 +131,10 @@ correct order.
   $requestHandler->queue->enqueue(new MiddlewareOne());
   $requestHandler->queue->enqueue(new MiddlewareTwo());
 
+  // Optionally, we could add the ErrorMiddleware as the very first middleware
+  // to convert any exception thrown by the others into an error response:
+  // $requestHandler->queue->enqueue(new \OCC\PSR15\ErrorMiddleware());
+
   // And we are ready to handle incoming requests!
   // We don't even need to pass the server request to this method, because
   // the constructor already took care of that!
