@@ -65,6 +65,9 @@ Unreleased
 * The documentation is no longer part of the repository, but built and deployed to
   `GitHub Pages <https://code.opencultureconsulting.com/psr-15/>`_ automatically for every release. To read it
   offline, build it locally with `composer phpdoc:build`
+* All code checks on GitHub now run the tool versions installed by Composer on PHP 8.5, just like when running them
+  locally, instead of using different third-party actions and Docker images
+* Updated Psalm to version 7 (still version 6 on PHP 8.1, which isn't supported by Psalm 7)
 
 v1.3.1
 ======
