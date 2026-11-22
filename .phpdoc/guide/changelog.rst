@@ -6,8 +6,8 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
-Unreleased
-==========
+v2.0.0
+======
 
 **Breaking Changes:**
 
