@@ -58,9 +58,11 @@ The server request is always available as `QueueRequestHandler::request`. It fol
 `PSR-7: HTTP Message Interfaces <https://www.php-fig.org/psr/psr-7/>`_ and implements the
 `Psr\Http\Message\ServerRequestInterface`.
 
-When instantiating a `QueueRequestHandler` the `$request` property is initially set by fetching the actual server
-request data from superglobals. The property is reset each time the request is passed through a middleware and thus
-always represents the current state of the request.
+When instantiating a `QueueRequestHandler` you can pass a server request as second argument to the constructor. It's
+used whenever `handle()` is called without a request. If you don't pass one, the request is created from PHP's
+superglobals using `Guzzle <https://github.com/guzzle/psr7>`_, so in that case `guzzlehttp/psr7` must be installed. The
+property is reset each time the request is passed through a middleware and thus always represents the current state of
+the request.
 
 HTTP Response
 -------------
@@ -69,11 +71,23 @@ The response can be read as `QueueRequestHandler::response`. It also follows PHP
 `PSR-7: HTTP Message Interfaces <https://www.php-fig.org/psr/psr-7/>`_ and implements the
 `Psr\Http\Message\ResponseInterface`.
 
-When instantiating a `QueueRequestHandler` the `$response` property is initially set as a blank HTTP response with
-status code `200`. The property is reset each time the response is passed through a middleware and thus
-always represents the latest state of the response.
+For each request the `$response` property is initially set as a blank HTTP response with status code `200`. It's
+created by a `PSR-17: HTTP Factories <https://www.php-fig.org/psr/psr-17/>`_ response factory, which you can pass as
+third argument to the constructor. If you don't pass one, Guzzle's factory is used. The property is reset each time the
+response is passed through a middleware and thus always represents the latest state of the response.
 
-Both, request and response, use the awesome implementations of `Guzzle <https://github.com/guzzle/psr7>`_.
+  Example:
+
+  .. code-block:: php
+    use Nyholm\Psr7\Factory\Psr17Factory;
+    use Nyholm\Psr7Server\ServerRequestCreator;
+    use OCC\PSR15\QueueRequestHandler;
+
+    // Use the PSR-7 implementation of nyholm/psr7 instead of Guzzle.
+    $factory = new Psr17Factory();
+    $request = (new ServerRequestCreator($factory, $factory, $factory, $factory))->fromGlobals();
+
+    $requestHandler = new QueueRequestHandler($middlewares, $request, $factory);
 
 Methods
 =======

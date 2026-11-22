@@ -25,6 +25,16 @@ Unreleased
   caller of `handle()`. Add the new :php:class:`OCC\PSR15\ErrorMiddleware` as the first middleware to convert them
   into responses. Error responses no longer reveal any details to the client and the `Warning` header was removed (see
   below).
+* :php:class:`OCC\PSR15\AbstractMiddleware` now works with any request handler implementing
+  `Psr\Http\Server\RequestHandlerInterface` instead of throwing a `DomainException` for anything but a
+  :php:class:`OCC\PSR15\QueueRequestHandler`. Therefore the type of the protected property
+  `AbstractMiddleware::requestHandler` changed to `RequestHandlerInterface`. Middlewares accessing properties of
+  `QueueRequestHandler` (e.g. `$this->requestHandler->request`) still work with it, but static analyzers will report
+  them unless you check the type with `instanceof QueueRequestHandler` first.
+* `guzzlehttp/psr7` is no longer a required dependency. The package now works with any PSR-7 and PSR-17
+  implementation. Guzzle is still used by default if it's installed, so add it to your own dependencies if you rely on
+  it (`composer require guzzlehttp/psr7`). Otherwise, pass the server request and a response factory to the
+  constructors of :php:class:`OCC\PSR15\QueueRequestHandler` and :php:class:`OCC\PSR15\ErrorMiddleware`.
 
 **Minor Changes:**
 
@@ -32,6 +42,9 @@ Unreleased
   HTTP error response. By default, the response only states the HTTP status and the details are written to PHP's error
   log. The exception code is used as status if it's a valid HTTP error status (`400` to `599`), otherwise it's `500`.
   A custom error handler can be passed to the constructor.
+* Added optional server request and PSR-17 response factory as second and third argument to the constructor of
+  :php:class:`OCC\PSR15\QueueRequestHandler`, and an optional response factory as second argument to the constructor
+  of :php:class:`OCC\PSR15\ErrorMiddleware`.
 
 **Bugfixes:**
 
