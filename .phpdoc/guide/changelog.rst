@@ -6,6 +6,20 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
+v3.0.0
+======
+
+**Breaking Changes:**
+
+* Raised minimum PHP version from 8.1 to 8.2, as PHP 8.1 reached end of life and
+  `opencultureconsulting/basics <https://packagist.org/packages/opencultureconsulting/basics>`_ 3.0 requires PHP 8.2
+
+**Maintenance:**
+
+* Updated `opencultureconsulting/basics <https://packagist.org/packages/opencultureconsulting/basics>`_ to version 3.0
+* Dropped Psalm 6, which was only needed for PHP 8.1
+* The test suite now runs on PHP 8.2 to 8.5 on GitHub
+
 v2.0.0
 ======
 

@@ -31,8 +31,8 @@ the desired version constraint:
 
 .. code-block:: shell
 
-  # This will install the latest patch level version of 1.1 (i. e. >=1.1.0 && <1.2.0)
-  composer require "opencultureconsulting/psr15:~1.1"
+  # This will install the latest patch level version of 3.0 (i. e. >=3.0.0 && <3.1.0)
+  composer require "opencultureconsulting/psr15:~3.0.0"
 
 All available versions as well as further information about :doc:`requirements` and dependencies can be found on
 `Packagist <https://packagist.org/packages/opencultureconsulting/psr15>`_.
@@ -54,8 +54,8 @@ well:
 
 .. code-block:: shell
 
-  # This will clone the repository state at version "1.1.0" into the "psr15" directory
-  git clone --branch=v1.1.0 https://github.com/opencultureconsulting/psr-15.git psr15
+  # This will clone the repository state at version "3.0.0" into the "psr15" directory
+  git clone --branch=v3.0.0 https://github.com/opencultureconsulting/psr-15.git psr15
 
 Be aware that you also need to make the classes available in your application by either adding them to your autoloader
 or by including all files individually in PHP. Also don't forget to do the same for all :doc:`requirements`.

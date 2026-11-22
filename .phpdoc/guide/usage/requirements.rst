@@ -6,7 +6,7 @@ Requirements
 Environment
 ===========
 
-This package requires at least **PHP 8.1**.
+This package requires at least **PHP 8.2**.
 
 It is highly recommended to use `Composer <https://getcomposer.org/>`_ for dependency management and autoloading,
 although it is technically not strictly required for using any of these classes. But it certainly makes it a lot
