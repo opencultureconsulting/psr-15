@@ -2,7 +2,7 @@
 
 ***An implementation of [PSR-15: HTTP Server Request Handlers](https://www.php-fig.org/psr/psr-15/).***
 
-The PHP Standard Recommendation PSR-15 defines interfaces for server request handlers and proposes a queue-based implementation using different middlewares for processing requests and preparing responses. This package follows those guidelines and provides a [HTTP server request handler](src/QueueRequestHandler.php) implementation using a [middleware queue](src/MiddlewareQueue.php). It also contains an [abstract class for middlewares](src/AbstractMiddleware.php) to ease the process of writing your own middleware, but you can just as well use any middleware that implements `Psr\Http\Server\MiddlewareInterface` specified by PSR-15 (e.g. from the awesome [PSR-15 HTTP Middlewares](https://github.com/middlewares) project).
+The PHP Standard Recommendation PSR-15 defines interfaces for server request handlers and proposes a queue-based implementation using different middlewares for processing requests and preparing responses. This package follows those guidelines and provides a [HTTP server request handler](src/QueueRequestHandler.php) implementation using a [middleware queue](src/MiddlewareQueue.php). It also contains a [middleware converting exceptions into error responses](src/ErrorMiddleware.php) and an [abstract class for middlewares](src/AbstractMiddleware.php) to ease the process of writing your own middleware, but you can just as well use any middleware that implements `Psr\Http\Server\MiddlewareInterface` specified by PSR-15 (e.g. from the awesome [PSR-15 HTTP Middlewares](https://github.com/middlewares) project).
 
 All components of this package follow the highest coding standards of [PHPStan](https://phpstan.org/), [Psalm](https://psalm.dev/), [PHP Mess Detector](https://phpmd.org/), [PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/), and comply to [PSR-12](https://www.php-fig.org/psr/psr-12/) code style guidelines to make sure they can be combined and easily used in other projects.
 
@@ -26,3 +26,5 @@ The full documentation is available on [GitHub Pages](https://code.opencultureco
 [![PHPMD](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpmd.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpmd.yml)
 [![PHPStan](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpstan.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpstan.yml)
 [![Psalm](https://github.com/opencultureconsulting/psr-15/actions/workflows/psalm.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/psalm.yml)
+
+Assisted-by: Claude Opus 5.5 (Anthropic)

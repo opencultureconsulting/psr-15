@@ -9,6 +9,7 @@ of one or more middlewares. The :doc:`middlewarequeue` provides the middlewares 
 i.e. the HTTP request is passed from middleware to middleware preserving the order in which the middlewares were added
 to the queue. An :doc:`abstractmiddleware` helps developing your own middlewares, but you can also use any middleware
 implementing the `Psr\Http\Server\MiddlewareInterface <https://packagist.org/packages/psr/http-server-middleware>`_.
+The :doc:`errormiddleware` converts exceptions and errors thrown by any middleware into HTTP error responses.
 
 All files share the highest coding standards of `PHPStan <https://phpstan.org/>`_ and `Psalm <https://psalm.dev/>`_,
 and full `PSR-12 <https://www.php-fig.org/psr/psr-12/>`_ compliance to make sure they can be combined and easily used
@@ -20,3 +21,4 @@ in other projects.
   queuerequesthandler
   middlewarequeue
   abstractmiddleware
+  errormiddleware

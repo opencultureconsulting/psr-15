@@ -20,6 +20,18 @@ Unreleased
   FrankenPHP). Previously every call after the first returned the stale response of the first run without invoking any
   middleware. While a request is being handled, `QueueRequestHandler::queue` returns that request's copy, so changes
   made by middlewares only apply to the current request.
+* :php:class:`OCC\PSR15\QueueRequestHandler` no longer catches exceptions thrown by a middleware. As intended by
+  PSR-15, they are now passed through all previous middlewares, so these can handle them as needed, and finally to the
+  caller of `handle()`. Add the new :php:class:`OCC\PSR15\ErrorMiddleware` as the first middleware to convert them
+  into responses. Error responses no longer reveal any details to the client and the `Warning` header was removed (see
+  below).
+
+**Minor Changes:**
+
+* Added :php:class:`OCC\PSR15\ErrorMiddleware` to convert any exception or error (i.e. every `Throwable`) into an
+  HTTP error response. By default, the response only states the HTTP status and the details are written to PHP's error
+  log. The exception code is used as status if it's a valid HTTP error status (`400` to `599`), otherwise it's `500`.
+  A custom error handler can be passed to the constructor.
 
 **Bugfixes:**
 

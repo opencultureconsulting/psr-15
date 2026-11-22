@@ -7,8 +7,7 @@ QueueRequestHandler
   .. contents::
 
 The `QueueRequestHandler` is the core piece of this package. It fetches incoming HTTP requests, passes them through a
-queue of middlewares and finally sends the response back to the client. It also catches any exceptions not handled by
-a middleware and turns them into a proper HTTP error response.
+queue of middlewares and finally sends the response back to the client.
 
 The `QueueRequestHandler` implements the `Psr\Http\Server\RequestHandlerInterface` following PHP-FIG's recommendation
 `PSR-15: HTTP Server Request Handlers <https://www.php-fig.org/psr/psr-15/>`_.
@@ -101,10 +100,13 @@ requests, e.g. in long-running PHP servers. While a request is being handled, `Q
 copy for that request. So if a middleware adds or removes other middlewares, this only applies to the current request
 and not to subsequent ones.
 
-In case of an error the request handler catches any exception and creates a response with the exception code as status
-code (if it's within the valid range of HTTP status codes, otherwise it's set to `500 (Internal Server Error)`), and
-the exception message as body. Such a response can be identified by having a `Warning` header set including the error
-code and the affected middleware.
+Handling Errors
+---------------
+
+As intended by `PSR-15 <https://www.php-fig.org/psr/psr-15/>`_, the request handler doesn't catch exceptions thrown by a
+middleware. They are passed through all previous middlewares, so each of them can handle errors as needed, and finally
+to the caller of `handle()`. To always get a response, add the :doc:`errormiddleware` as the first middleware to the
+queue. It converts any exception or error into an HTTP error response.
 
 Sending the Response
 --------------------
