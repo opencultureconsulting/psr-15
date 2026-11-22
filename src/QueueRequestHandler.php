@@ -211,15 +211,6 @@ final class QueueRequestHandler implements RequestHandler
                 500
             );
         }
-        header(
-            sprintf(
-                'HTTP/%s %d %s',
-                $this->response->getProtocolVersion(),
-                $this->response->getStatusCode(),
-                $this->response->getReasonPhrase()
-            ),
-            true
-        );
         foreach ($this->response->getHeaders() as $name => $values) {
             $name = (string) $name;
             // Send every value as a separate header line, because some headers
@@ -232,6 +223,15 @@ final class QueueRequestHandler implements RequestHandler
                 $replace = false;
             }
         }
+        header(
+            sprintf(
+                'HTTP/%s %d %s',
+                $this->response->getProtocolVersion(),
+                $this->response->getStatusCode(),
+                $this->response->getReasonPhrase()
+            ),
+            true
+        );
         echo $this->response->getBody();
     }
 

@@ -27,6 +27,9 @@ Unreleased
   Previously multiple values were combined into one comma-separated line, which broke responses setting more than one
   cookie. Headers already set by PHP (e.g. `Cache-Control` from `session_start()`) are now replaced instead of being
   sent twice, except for cookies.
+* :php:method:`OCC\PSR15\QueueRequestHandler::respond()` now sends the status line after all other headers. Previously
+  PHP silently changed the status code to `302` when a `Location` header was present (unless the status was `201` or
+  `3xx`), and to `401` when a `WWW-Authenticate` header was present, e.g. turning a `202 Accepted` into a redirect.
 
 v1.3.1
 ======
