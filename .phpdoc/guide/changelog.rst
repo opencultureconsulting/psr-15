@@ -6,6 +6,16 @@ Changelog
 .. sidebar:: Table of Contents
   .. contents::
 
+Unreleased
+==========
+
+**Breaking Changes:**
+
+* :php:class:`OCC\PSR15\MiddlewareQueue` is no longer a singleton, so every
+  :php:class:`OCC\PSR15\QueueRequestHandler` now gets its own queue of middlewares. Previously all handlers shared one
+  queue and middlewares passed to any but the first handler were silently ignored. Use `new MiddlewareQueue()` instead of
+  `MiddlewareQueue::getInstance()`.
+
 v1.3.1
 ======
 
