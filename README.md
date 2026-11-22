@@ -11,8 +11,10 @@ All components of this package follow the highest coding standards of [PHPStan](
 The intended and recommended way of using this package is via [Composer](https://getcomposer.org/). The following command will get you the latest version:
 
 ```shell
-composer require opencultureconsulting/psr15
+composer require opencultureconsulting/psr15 guzzlehttp/psr7
 ```
+
+The package works with any [PSR-7](https://www.php-fig.org/psr/psr-7/) implementation, but uses [Guzzle](https://github.com/guzzle/psr7) by default. If you prefer another implementation, you can skip `guzzlehttp/psr7` and pass your own server request and response factory instead.
 
 All available versions as well as further information about requirements and dependencies can be found on [Packagist](https://packagist.org/packages/opencultureconsulting/psr15).
 

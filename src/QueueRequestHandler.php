@@ -22,10 +22,10 @@ declare(strict_types=1);
 
 namespace OCC\PSR15;
 
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
-use GuzzleHttp\Psr7\ServerRequest as GuzzleRequest;
+use LogicException;
 use OCC\Basics\Traits\Getter;
 use Override;
+use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
@@ -88,6 +88,13 @@ final class QueueRequestHandler implements RequestHandler
     private ?MiddlewareQueue $currentQueue = null;
 
     /**
+     * The PSR-17 factory creating the initial response for each request.
+     *
+     * @internal
+     */
+    private readonly ResponseFactory $responseFactory;
+
+    /**
      * Handles a request by invoking a queue of middlewares.
      *
      * Each top-level call works on its own copy of the queue, so the same handler
@@ -114,7 +121,7 @@ final class QueueRequestHandler implements RequestHandler
         if ($isNewRun) {
             $this->currentQueue = clone $this->queue;
             $this->request = $request ?? $this->initialRequest;
-            $this->response = new GuzzleResponse();
+            $this->response = $this->responseFactory->createResponse();
         }
         try {
             $this->processNextMiddleware();
@@ -239,13 +246,23 @@ final class QueueRequestHandler implements RequestHandler
      * Create a queue-based PSR-15 HTTP Server Request Handler.
      *
      * @param iterable<array-key, Middleware> $middlewares Initial set of middlewares
+     * @param ?ServerRequest $request The server request to handle by default (defaults to the request created from
+     *        PHP's superglobals by Guzzle)
+     * @param ?ResponseFactory $responseFactory The PSR-17 factory creating the initial response for each request
+     *        (defaults to Guzzle's factory)
+     *
+     * @throws LogicException if a default is needed, but Guzzle is not installed
      */
-    public function __construct(iterable $middlewares = [])
-    {
-        $this->initialRequest = GuzzleRequest::fromGlobals();
+    public function __construct(
+        iterable $middlewares = [],
+        ?ServerRequest $request = null,
+        ?ResponseFactory $responseFactory = null
+    ) {
+        $this->initialRequest = $request ?? Defaults::serverRequest(self::class);
         $this->request = $this->initialRequest;
         $this->queue = new MiddlewareQueue($middlewares);
-        $this->response = new GuzzleResponse();
+        $this->responseFactory = $responseFactory ?? Defaults::responseFactory(self::class);
+        $this->response = $this->responseFactory->createResponse();
     }
 
     /**

@@ -18,6 +18,14 @@ and register all classes with the autoloader to make them available inside the a
   # This will install the latest stable version suitable for your project
   composer require "opencultureconsulting/psr15"
 
+The package works with any `PSR-7 <https://www.php-fig.org/psr/psr-7/>`_ implementation, but uses
+`guzzlehttp/psr7 <https://packagist.org/packages/guzzlehttp/psr7>`_ by default. If you don't want to configure another
+implementation (see :doc:`requirements`), install Guzzle as well:
+
+.. code-block:: shell
+
+  composer require "guzzlehttp/psr7"
+
 If you want to use a specific version other than the latest available for your environment, you can do so by appending
 the desired version constraint:
 

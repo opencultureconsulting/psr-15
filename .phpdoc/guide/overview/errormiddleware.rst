@@ -45,6 +45,10 @@ The response doesn't reveal any details about the error to the client. Those are
 (see `error_log() <https://www.php.net/manual/en/function.error-log.php>`_), including the class of the exception, its
 message, and the file and line where it was thrown.
 
+The response is created by a `PSR-17: HTTP Factories <https://www.php-fig.org/psr/psr-17/>`_ response factory, which
+you can pass as second argument to the constructor, e.g. `new ErrorMiddleware(null, $responseFactory)`. If you don't
+pass one, Guzzle's factory is used, so in that case `guzzlehttp/psr7` must be installed.
+
 Custom Error Handler
 ====================
 

@@ -23,8 +23,9 @@ declare(strict_types=1);
 namespace OCC\PSR15;
 
 use Closure;
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use LogicException;
 use Override;
+use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface;
@@ -65,12 +66,13 @@ final class ErrorMiddleware implements MiddlewareInterface
      * status (400 to 599), otherwise the status is "500 Internal Server Error".
      *
      * @param Throwable $error The exception or error to convert
+     * @param ResponseFactory $responseFactory The PSR-17 factory creating the response
      *
      * @return Response A PSR-7 compatible HTTP response
      *
      * @internal
      */
-    private function convert(Throwable $error): Response
+    private static function convert(Throwable $error, ResponseFactory $responseFactory): Response
     {
         error_log(
             sprintf(
@@ -81,7 +83,7 @@ final class ErrorMiddleware implements MiddlewareInterface
                 $error->getLine()
             )
         );
-        $response = new GuzzleResponse(
+        $response = $responseFactory->createResponse(
             filter_var(
                 $error->getCode(),
                 \FILTER_VALIDATE_INT,
@@ -92,9 +94,8 @@ final class ErrorMiddleware implements MiddlewareInterface
                         'max_range' => 599
                     ]
                 ]
-            ),
-            ['Content-Type' => 'text/plain; charset=utf-8']
-        );
+            )
+        )->withHeader('Content-Type', 'text/plain; charset=utf-8');
         $response->getBody()->write(
             sprintf('%d %s', $response->getStatusCode(), $response->getReasonPhrase())
         );
@@ -127,9 +128,18 @@ final class ErrorMiddleware implements MiddlewareInterface
      *
      * @param ?callable(Throwable, ServerRequest): Response $errorHandler Callback converting exceptions and errors
      *        into a response (defaults to a generic error response)
+     * @param ?ResponseFactory $responseFactory The PSR-17 factory creating the default error responses (defaults to
+     *        Guzzle's factory, only used without custom error handler)
+     *
+     * @throws LogicException if a default is needed, but Guzzle is not installed
      */
-    public function __construct(?callable $errorHandler = null)
+    public function __construct(?callable $errorHandler = null, ?ResponseFactory $responseFactory = null)
     {
-        $this->errorHandler = $errorHandler !== null ? Closure::fromCallable($errorHandler) : $this->convert(...);
+        if ($errorHandler !== null) {
+            $this->errorHandler = Closure::fromCallable($errorHandler);
+            return;
+        }
+        $responseFactory ??= Defaults::responseFactory(self::class);
+        $this->errorHandler = static fn (Throwable $error): Response => self::convert($error, $responseFactory);
     }
 }
