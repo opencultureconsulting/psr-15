@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace OCC\PSR15;
 
 use DomainException;
+use Override;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface;
@@ -55,7 +56,7 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      *
      * @api
      */
-    #[\Override]
+    #[Override]
     final public function process(ServerRequest $request, RequestHandler $handler): Response
     {
         if (!$handler instanceof QueueRequestHandler) {

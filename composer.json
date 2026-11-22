@@ -73,7 +73,7 @@
         ],
         "phpmd:check": [
             "@php -r \"if (!file_exists('./.phpmd.xml')) { copy('./.phpmd.dist.xml', './.phpmd.xml'); }\"",
-            "@php vendor/bin/phpmd src/ ansi .phpmd.xml --cache --ignore-violations-on-exit"
+            "@php vendor/bin/phpmd analyze --format=ansi --ruleset=.phpmd.xml --cache --ignore-violations-on-exit src/"
         ],
         "phpstan:check": [
             "@php vendor/bin/phpstan"

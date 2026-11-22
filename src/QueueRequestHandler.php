@@ -27,6 +27,7 @@ use RuntimeException;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use GuzzleHttp\Psr7\ServerRequest as GuzzleRequest;
 use OCC\Basics\Traits\Getter;
+use Override;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
@@ -122,7 +123,7 @@ final class QueueRequestHandler implements RequestHandler
      *
      * @api
      */
-    #[\Override]
+    #[Override]
     public function handle(?ServerRequest $request = null): Response
     {
         $this->request = $request ?? $this->request;
