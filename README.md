@@ -28,5 +28,6 @@ The full documentation is available on [GitHub Pages](https://code.opencultureco
 [![PHPMD](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpmd.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpmd.yml)
 [![PHPStan](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpstan.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpstan.yml)
 [![Psalm](https://github.com/opencultureconsulting/psr-15/actions/workflows/psalm.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/psalm.yml)
+[![PHPUnit](https://github.com/opencultureconsulting/psr-15/actions/workflows/tests.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/tests.yml)
 
 Assisted-by: Claude Opus 5.5 (Anthropic)
