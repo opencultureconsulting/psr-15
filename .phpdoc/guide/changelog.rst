@@ -21,6 +21,13 @@ Unreleased
   middleware. While a request is being handled, `QueueRequestHandler::queue` returns that request's copy, so changes
   made by middlewares only apply to the current request.
 
+**Bugfixes:**
+
+* :php:method:`OCC\PSR15\QueueRequestHandler::respond()` now sends every header value as a separate header line.
+  Previously multiple values were combined into one comma-separated line, which broke responses setting more than one
+  cookie. Headers already set by PHP (e.g. `Cache-Control` from `session_start()`) are now replaced instead of being
+  sent twice, except for cookies.
+
 v1.3.1
 ======
 

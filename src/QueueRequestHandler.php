@@ -33,12 +33,12 @@ use Psr\Http\Message\ServerRequestInterface as ServerRequest;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
-use function array_keys;
 use function count;
 use function filter_var;
 use function header;
 use function headers_sent;
 use function sprintf;
+use function strtolower;
 
 /**
  * A queue-based PSR-15 HTTP Server Request Handler.
@@ -220,10 +220,17 @@ final class QueueRequestHandler implements RequestHandler
             ),
             true
         );
-        foreach (array_keys($this->response->getHeaders()) as $name) {
-            /** @var string $name */
-            $header = sprintf('%s: %s', $name, $this->response->getHeaderLine($name));
-            header($header, false);
+        foreach ($this->response->getHeaders() as $name => $values) {
+            $name = (string) $name;
+            // Send every value as a separate header line, because some headers
+            // (e.g. "Set-Cookie") must not be combined into one comma-separated
+            // line. The first line replaces any header of the same name already
+            // set by PHP, except for cookies which might have been set elsewhere.
+            $replace = strtolower($name) !== 'set-cookie';
+            foreach ($values as $value) {
+                header(sprintf('%s: %s', $name, $value), $replace);
+                $replace = false;
+            }
         }
         echo $this->response->getBody();
     }
