@@ -42,6 +42,7 @@
         "phpmd/phpmd": "^3.0",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.5 || ^13.0",
         "friendsofphp/php-cs-fixer": "^3.86",
         "squizlabs/php_codesniffer": "^4.0",
         "vimeo/psalm": "^6.13"
@@ -56,6 +57,11 @@
     "autoload": {
         "psr-4": {
             "OCC\\PSR15\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OCC\\PSR15\\Tests\\": "tests/"
         }
     },
     "config": {
@@ -88,6 +94,9 @@
         ],
         "psalm:check-security": [
             "@php vendor/bin/psalm --taint-analysis"
+        ],
+        "phpunit:test": [
+            "@php vendor/bin/phpunit"
         ]
     },
     "scripts-descriptions": {
@@ -98,6 +107,7 @@
         "phpmd:check": "Runs a code check with PHP Mess Detector static code analyzer and reports problems. If a custom configuration file '.phpmd.xml' exists, it will be used instead of the default settings in '.phpmd.dist.xml'.",
         "phpstan:check": "Runs a code check with PHPStan static code analyzer and reports problems. If a custom configuration file 'phpstan.neon' exists, it will be used instead of the default settings in 'phpstan.dist.neon'.",
         "psalm:check": "Runs a code check with Psalm static code analyzer and reports problems. If a custom configuration file 'psalm.xml' exists, it will be used instead of the default settings in 'psalm.xml.dist'.",
-        "psalm:check-security": "Runs a code check with Psalm static code analyzer and reports security issues. If a custom configuration file 'psalm.xml' exists, it will be used instead of the default settings in 'psalm.xml.dist'."
+        "psalm:check-security": "Runs a code check with Psalm static code analyzer and reports security issues. If a custom configuration file 'psalm.xml' exists, it will be used instead of the default settings in 'psalm.xml.dist'.",
+        "phpunit:test": "Runs all tests with PHPUnit. If a custom configuration file 'phpunit.xml' exists, it will be used instead of the default settings in 'phpunit.xml.dist'."
     }
 }

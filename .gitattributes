@@ -120,3 +120,5 @@ doc/*           linguist-generated=true
 .phpdoc/*       export-ignore
 .editorconfig   export-ignore
 phpdoc.dist.xml export-ignore
+phpunit.xml.dist export-ignore
+/tests          export-ignore

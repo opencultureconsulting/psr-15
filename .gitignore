@@ -5,9 +5,11 @@
 .php-cs-fixer.php
 .phpmd.result-cache.php
 .phpmd.xml
+.phpunit.cache
 composer.lock
 phpcs.xml
 phpdoc.xml
 phpstan.neon
+phpunit.xml
 psalm.xml
 TODO

@@ -56,6 +56,11 @@ Unreleased
   PHP silently changed the status code to `302` when a `Location` header was present (unless the status was `201` or
   `3xx`), and to `401` when a `WWW-Authenticate` header was present, e.g. turning a `202 Accepted` into a redirect.
 
+**Maintenance:**
+
+* Added a test suite for PHPUnit (run with `composer phpunit:test`), which is run for every supported PHP version (8.1
+  to 8.5) on GitHub
+
 v1.3.1
 ======
 
