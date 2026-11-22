@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace OCC\PSR15;
 
 use OCC\Basics\DataStructures\StrictQueue;
-use OCC\Basics\Traits\Singleton;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
 
 /**
@@ -32,20 +31,16 @@ use Psr\Http\Server\MiddlewareInterface as Middleware;
  * @author Sebastian Meyer <sebastian.meyer@opencultureconsulting.com>
  * @package PSR15
  *
- * @method static static getInstance(iterable<\Psr\Http\Server\MiddlewareInterface> $middlewares)
- *
  * @extends StrictQueue<Middleware>
  */
 final class MiddlewareQueue extends StrictQueue
 {
-    use Singleton;
-
     /**
      * Create a queue of PSR-15 compatible middlewares.
      *
      * @param iterable<array-key, Middleware> $middlewares Initial set of PSR-15 middlewares
      */
-    private function __construct(iterable $middlewares = [])
+    public function __construct(iterable $middlewares = [])
     {
         parent::__construct([Middleware::class]);
         $this->append(...$middlewares);

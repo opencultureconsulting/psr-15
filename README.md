@@ -24,6 +24,5 @@ The full documentation is available on [GitHub Pages](https://code.opencultureco
 
 [![PHPCS](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpcs.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpcs.yml)
 [![PHPMD](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpmd.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpmd.yml)
-
 [![PHPStan](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpstan.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/phpstan.yml)
 [![Psalm](https://github.com/opencultureconsulting/psr-15/actions/workflows/psalm.yml/badge.svg)](https://github.com/opencultureconsulting/psr-15/actions/workflows/psalm.yml)

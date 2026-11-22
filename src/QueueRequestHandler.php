@@ -226,7 +226,7 @@ final class QueueRequestHandler implements RequestHandler
     public function __construct(iterable $middlewares = [])
     {
         $this->request = GuzzleRequest::fromGlobals();
-        $this->queue = MiddlewareQueue::getInstance($middlewares);
+        $this->queue = new MiddlewareQueue($middlewares);
         $this->response = new GuzzleResponse();
     }
 
