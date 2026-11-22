@@ -195,6 +195,8 @@ final class QueueRequestHandler implements RequestHandler
      *
      * @throws RuntimeException if headers were already sent
      *
+     * @psalm-suppress TaintedInput
+     *
      * @api
      */
     public function respond(): void
