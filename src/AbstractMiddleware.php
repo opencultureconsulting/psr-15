@@ -44,6 +44,8 @@ abstract class AbstractMiddleware implements MiddlewareInterface
      * accessed as well.
      *
      * @internal
+     *
+     * @psalm-suppress PropertyNotSetInConstructor
      */
     protected RequestHandler $requestHandler;
 
